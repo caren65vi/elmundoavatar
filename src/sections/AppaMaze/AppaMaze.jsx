@@ -136,30 +136,50 @@ export default function AppaMaze({ user }) {
     return { x: 1, y: 1 };
   };
 
+  // Per-level hazard starting positions (all verified to be on open cells)
+  const levelHazardPositions = [
+    // Level 1 — Tribu Agua: positions (col, row) all on value=0 cells
+    [
+      { x: 7, y: 1, dirX: 1,  dirY: 0  },  // horizontal in row 1 cols 6-10
+      { x: 3, y: 7, dirX: 1,  dirY: 0  },  // horizontal in row 7 cols 1-3
+      { x: 8, y: 9, dirX: -1, dirY: 0  }   // horizontal in row 9 cols 7-10
+    ],
+    // Level 2 — Ba Sing Se: col 3 row 7 was a wall, moved to col 7 row 7
+    [
+      { x: 5, y: 1, dirX: 1,  dirY: 0  },  // horizontal in row 1
+      { x: 7, y: 7, dirX: -1, dirY: 0  },  // horizontal in row 7 cols 5-10
+      { x: 5, y: 9, dirX: 1,  dirY: 0  }   // horizontal in row 9
+    ],
+    // Level 3 — Nación del Fuego: col 5 row 1 was a wall, moved to col 7 row 1
+    [
+      { x: 7, y: 1, dirX: 1,  dirY: 0  },  // horizontal in row 1 cols 6-10
+      { x: 5, y: 7, dirX: 1,  dirY: 0  },  // horizontal in row 7 cols 5-8
+      { x: 3, y: 5, dirX: 0,  dirY: 1  }   // vertical in col 3 rows 5-8
+    ],
+    // Level 4 — Templos del Aire: all fine
+    [
+      { x: 5, y: 1, dirX: 1,  dirY: 0  },  // short bounce cols 5-7 row 1
+      { x: 5, y: 5, dirX: 1,  dirY: 0  },  // wide bounce cols 3-8 row 5
+      { x: 7, y: 9, dirX: -1, dirY: 0  }   // bounce cols 6-10 row 9
+    ]
+  ];
+
   // Initialize Level Hazards
   useEffect(() => {
     const startPos = getStartPos(level);
     setPlayerPosition(startPos);
     setGameWon(false);
 
-    // Create 3 hazards that slide horizontally/vertically in open paths
-    const newHazards = Array.from({ length: 3 }).map((_, i) => {
-      // Find open spots
-      const positions = [
-        { x: 5, y: 1, dirX: 1, dirY: 0 },
-        { x: 3, y: 7, dirX: 0, dirY: 1 },
-        { x: 8, y: 9, dirX: -1, dirY: 0 }
-      ];
-      return {
-        id: i,
-        x: positions[i].x * cellSize + cellSize / 2,
-        y: positions[i].y * cellSize + cellSize / 2,
-        gridX: positions[i].x,
-        gridY: positions[i].y,
-        dirX: positions[i].dirX,
-        dirY: positions[i].dirY
-      };
-    });
+    const positions = levelHazardPositions[level];
+    const newHazards = positions.map((pos, i) => ({
+      id: i,
+      x: pos.x * cellSize + cellSize / 2,
+      y: pos.y * cellSize + cellSize / 2,
+      gridX: pos.x,
+      gridY: pos.y,
+      dirX: pos.dirX,
+      dirY: pos.dirY
+    }));
     setHazards(newHazards);
   }, [level]);
 

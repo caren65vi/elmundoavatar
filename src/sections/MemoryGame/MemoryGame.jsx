@@ -180,20 +180,20 @@ export default function MemoryGame({ user }) {
                     {card.id === 7
                       ? <img src="/appa.png" alt="Appa" style={{ width: "2.8rem", height: "2.8rem", objectFit: "contain" }} />
                       : card.id === 2
-                        ? <div style={{ width: "2.6rem", height: "2.6rem", borderRadius: "50%", border: "2px solid #1b6ca8", boxShadow: "0 0 8px #1b6ca880", background: "rgba(27,108,168,0.15)", display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden" }}>
-                            <img src="/escudoAgua.png" alt="Agua" style={{ width: "80%", height: "80%", objectFit: "contain", borderRadius: "50%", mixBlendMode: "multiply" }} />
+                        ? <div style={{ width: "2.6rem", height: "2.6rem", borderRadius: "50%", border: "2px solid #1b6ca8", boxShadow: "0 0 8px #1b6ca880", background: "#fff", display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden" }}>
+                            <img src="/escudoAgua.png" alt="Agua" style={{ width: "80%", height: "80%", objectFit: "contain" }} />
                           </div>
                         : card.id === 4
-                          ? <div style={{ width: "2.6rem", height: "2.6rem", borderRadius: "50%", border: "2px solid #c0392b", boxShadow: "0 0 8px #c0392b80", background: "rgba(192,57,43,0.15)", display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden" }}>
-                              <img src="/escudoFuego.png" alt="Fuego" style={{ width: "80%", height: "80%", objectFit: "contain", borderRadius: "50%", mixBlendMode: "multiply" }} />
+                          ? <div style={{ width: "2.6rem", height: "2.6rem", borderRadius: "50%", border: "2px solid #c0392b", boxShadow: "0 0 8px #c0392b80", background: "#fff", display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden" }}>
+                              <img src="/escudoFuego.png" alt="Fuego" style={{ width: "80%", height: "80%", objectFit: "contain" }} />
                             </div>
                           : card.id === 3
-                            ? <div style={{ width: "2.6rem", height: "2.6rem", borderRadius: "50%", border: "2px solid #4a7c59", boxShadow: "0 0 8px #4a7c5980", background: "rgba(74,124,89,0.15)", display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden" }}>
-                                <img src="/escudoTierra.png" alt="Tierra" style={{ width: "80%", height: "80%", objectFit: "contain", borderRadius: "50%", mixBlendMode: "multiply" }} />
+                            ? <div style={{ width: "2.6rem", height: "2.6rem", borderRadius: "50%", border: "2px solid #4a7c59", boxShadow: "0 0 8px #4a7c5980", background: "#fff", display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden" }}>
+                                <img src="/escudoTierra.png" alt="Tierra" style={{ width: "80%", height: "80%", objectFit: "contain" }} />
                               </div>
                             : card.id === 1
-                              ? <div style={{ width: "2.6rem", height: "2.6rem", borderRadius: "50%", border: "2px solid #e8b86d", boxShadow: "0 0 8px #e8b86d80", background: "rgba(232,184,109,0.15)", display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden" }}>
-                                  <img src="/escudoAire.png" alt="Aire" style={{ width: "80%", height: "80%", objectFit: "contain", borderRadius: "50%", mixBlendMode: "multiply" }} />
+                              ? <div style={{ width: "2.6rem", height: "2.6rem", borderRadius: "50%", border: "2px solid #e8b86d", boxShadow: "0 0 8px #e8b86d80", background: "#fff", display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden" }}>
+                                  <img src="/escudoAire.png" alt="Aire" style={{ width: "80%", height: "80%", objectFit: "contain" }} />
                                 </div>
                               : card.emoji}
                   </div>
