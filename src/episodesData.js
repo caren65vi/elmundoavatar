@@ -1,0 +1,71 @@
+// Complete episode list for the 3 Books (Water, Earth, Fire) of Avatar: The Last Airbender.
+
+export const bookWaterEpisodes = [
+  { id: 1, title: "El niño en el iceberg", desc: "Katara y Sokka descubren a un niño congelado en un iceberg en el Polo Sur, resultando ser el Avatar Aang." },
+  { id: 2, title: "El regreso del Avatar", desc: "Zuko ataca la Tribu Agua del Sur buscando al Avatar. Aang se entrega para protegerlos y luego escapa con la ayuda de Appa." },
+  { id: 3, title: "El Templo del Aire del Sur", desc: "Aang regresa a su hogar después de 100 años y descubre con horror el genocidio de los nómadas del aire a manos de la Nación del Fuego." },
+  { id: 4, title: "Los guerreros de Kyoshi", desc: "El grupo viaja a la isla de Kyoshi. Sokka aprende artes marciales y humildad con las valientes guerreras de la isla." },
+  { id: 5, title: "El rey de Omashu", desc: "Aang y sus amigos son capturados en la ciudad del Reino Tierra de Omashu, donde un excéntrico rey los somete a tres retos." },
+  { id: 6, title: "Prisionera", desc: "Katara ayuda a un joven maestro tierra llamado Haru a liberar a su padre y a otros maestros cautivos en una prisión flotante de metal." },
+  { id: 7, title: "Solsticio de Invierno (Parte 1)", desc: "Aang debe cruzar al mundo espiritual para salvar a una aldea aterrorizada por un espíritu de bosque enfurecido llamado Hei Bai." },
+  { id: 8, title: "El Templo del Avatar Roku", desc: "Durante el solsticio de invierno, Aang viaja a un templo en territorio enemigo para recibir un mensaje crucial del Avatar Roku." },
+  { id: 9, title: "El pergamino del Agua Control", desc: "Katara roba un valioso pergamino de agua control de unos piratas para enseñarle a Aang, desatando una cacería." },
+  { id: 10, title: "Jet", desc: "El grupo conoce a Jet y su banda de guerrilleros. Sokka descubre que los planes de Jet implican sacrificar una aldea inocente." },
+  { id: 11, title: "La gran división", desc: "Aang actúa como mediador para cruzar un cañón gigante con dos tribus rivales que se odian mutuamente." },
+  { id: 12, title: "La tormenta", desc: "Una gran tormenta trae recuerdos dolorosos. Se revela por qué Aang huyó de casa y cómo Zuko obtuvo su cicatriz." },
+  { id: 13, title: "El espíritu azul", desc: "Aang es capturado por el almirante Zhao, pero un enigmático espadachín enmascarado lo rescata arriesgando su vida." },
+  { id: 14, title: "Predicciones", desc: "Una adivina en una aldea convence a todos de que el volcán local no hará erupción. Aang y Sokka deben salvarlos de la lava." },
+  { id: 15, title: "Bato de la Tribu del Agua", desc: "El grupo se reúne con Bato, un viejo amigo de Hakoda. Aang oculta un mapa temiendo que sus amigos lo abandonen." },
+  { id: 16, title: "El desertor", desc: "Aang busca a un legendario maestro fuego desertor llamado Jeong Jeong para comenzar su entrenamiento, pero el fuego es peligroso." },
+  { id: 17, title: "El Templo del Aire del Norte", desc: "Aang descubre con enojo que refugiados del Reino Tierra han modificado un templo sagrado con tecnología de vapor." },
+  { id: 18, title: "Maestro del Agua Control", desc: "Al llegar al Polo Norte, el maestro Pakku se niega a enseñarle a Katara por ser mujer. Ella lo desafía en un gran duelo." },
+  { id: 19, title: "El Trono del Norte (Parte 1)", desc: "La flota del almirante Zhao ataca la Tribu Agua del Norte. Zuko se infiltra en la ciudad para capturar a Aang por su cuenta." },
+  { id: 20, title: "El Trono del Norte (Parte 2)", desc: "Zhao asesina al Espíritu de la Luna, tiñendo el cielo de rojo. Aang se fusiona con el Espíritu del Océano para repeler el asalto." }
+];
+
+export const bookEarthEpisodes = [
+  { id: 1, title: "El estado Avatar", desc: "Un general del Reino Tierra intenta obligar a Aang a entrar en el Estado Avatar de forma artificial usando el miedo y la ira." },
+  { id: 2, title: "La cueva de los dos amantes", desc: "El grupo cruza un túnel legendario con un grupo de bardos nómadas. Aang y Katara se ven forzados a confiar el uno en el otro." },
+  { id: 3, title: "El retorno a Omashu", desc: "Aang regresa a Omashu para aprender tierra control con Bumi, pero descubre que la ciudad ha sido conquistada por la Nación del Fuego." },
+  { id: 4, title: "El pantano", desc: "Un misterioso pantano espiritual les muestra visiones extrañas del pasado y del futuro, incluyendo a una misteriosa niña ciega." },
+  { id: 5, title: "El día del Avatar", desc: "Una aldea somete a Aang a juicio por las acciones del Avatar Kyoshi, su vida pasada. Aang debe investigar un antiguo crimen." },
+  { id: 6, title: "La bandida ciega", desc: "Aang encuentra a su maestra de tierra control ideal: Toph Beifong, una niña de familia noble que combate en arenas clandestinas." },
+  { id: 7, title: "Zuko solitario", desc: "Zuko viaja solo y hambriento por el Reino Tierra, recordando su infancia difícil y defendiendo a una aldea desamparada." },
+  { id: 8, title: "La persecución", desc: "Azula, Mai y Ty Lee persiguen implacablemente al grupo en una máquina de asedio, impidiéndoles dormir y llevándolos al límite." },
+  { id: 9, title: "El trabajo en metal", desc: "Toph enseña a Aang a tener la firmeza de la roca. Sokka compra un bumerán nuevo y Zuko e Iroh intentan rehacer su vida." },
+  { id: 10, title: "La biblioteca", desc: "Sokka lidera una expedición a la biblioteca perdida de Wan Shi Tong en el desierto para buscar una debilidad de la Nación del Fuego." },
+  { id: 11, title: "El desierto", desc: "Tras el secuestro de Appa por maestros arena, el grupo queda varado en el desierto ardiente. La ira de Aang estalla sin control." },
+  { id: 12, title: "El paso de la serpiente", desc: "Aang guía a una familia de refugiados a través de un peligroso camino costero. Se reencuentran con Suki en el ferry." },
+  { id: 13, title: "El taladro", desc: "Una colosal máquina de asedio de la Nación del Fuego intenta perforar los muros de Ba Sing Se. El Equipo Avatar debe sabotearla." },
+  { id: 14, title: "La ciudad de muros y secretos", desc: "El grupo llega a Ba Sing Se, pero descubren una inquietante conspiración gubernamental que censura cualquier mención de la guerra." },
+  { id: 15, title: "Las aventuras en Ba Sing Se", desc: "Historias cortas e icónicas de cada personaje en la ciudad. Incluye el conmovedor homenaje de Iroh a su hijo Lu Ten." },
+  { id: 16, title: "La aventura de Appa", desc: "Se narra el doloroso viaje de Appa en solitario tras su rapto: capturado por un circo, escapando y buscando a Aang." },
+  { id: 17, title: "El lago Laogai", desc: "El grupo busca a Appa bajo el lago Laogai, la base oculta del Dai Li dirigida por el conspirador Long Feng." },
+  { id: 18, title: "El rey de la Tierra", desc: "Aang y sus amigos asaltan el palacio real para revelarle la verdad de la guerra al ignorante Rey de la Tierra." },
+  { id: 19, title: "El gurú", desc: "Aang viaja al Templo del Aire del Este para abrir sus chakras con el Gurú Pathik. Toph es capturada y descubre el Metal Control." },
+  { id: 20, title: "Las encrucijadas del destino", desc: "Azula da un golpe de estado en Ba Sing Se con la policía del Dai Li. Zuko traiciona a Iroh y Aang es herido de gravedad." }
+];
+
+export const bookFireEpisodes = [
+  { id: 1, title: "El despertar", desc: "Aang despierta en un barco de la Nación del Fuego disfrazado. El mundo cree que el Avatar ha muerto tras el ataque en Ba Sing Se." },
+  { id: 2, title: "El pañuelo de la cabeza", desc: "Aang se infiltra accidentalmente en una escuela de la Nación del Fuego y organiza un baile de desahogo para los reprimidos alumnos." },
+  { id: 3, title: "La Dama Pintada", desc: "Katara se disfraza de una deidad espiritual del río para alimentar y limpiar una aldea flotante oprimida por una fábrica militar." },
+  { id: 4, title: "El maestro de Sokka", desc: "Sokka se siente inútil por no ser maestro control y busca entrenamiento con el legendario espadachín de la nación, Piandao." },
+  { id: 5, title: "La playa", desc: "Zuko, Azula, Mai y Ty Lee pasan un fin de semana en la playa revelando sus traumas de infancia y quemando una casa de verano." },
+  { id: 6, title: "El Avatar y el Señor del Fuego", desc: "Aang e Iroh aprenden sobre las vidas paralelas del Avatar Roku y el Señor del Fuego Sozin, y cómo inició la guerra centenaria." },
+  { id: 7, title: "La fugitiva", desc: "Toph usa estafas callejeras para ganar dinero en la ciudad, provocando tensiones con Katara y atrayendo al cazarrecompensas." },
+  { id: 8, title: "La titiritera", desc: "El grupo conoce a Hama, una anciana de la Tribu Agua del Sur exiliada, que enseña a Katara la temible y prohibida Sangre Control." },
+  { id: 9, title: "Pesadillas y ensueños", desc: "A pocos días de la invasión, Aang sufre de alucinaciones y pesadillas por su inminente pelea contra Ozai. Sokka organiza un plan." },
+  { id: 10, title: "El día del Sol Negro (Parte 1)", desc: "El plan de invasión comienza durante el eclipse solar que anula el fuego control. Las fuerzas aliadas marchan a la capital." },
+  { id: 11, title: "El día del Sol Negro (Parte 2)", desc: "Aang busca a Ozai pero es engañado por Azula. El eclipse termina, Zuko confronta a su padre e Iroh escapa de prisión." },
+  { id: 12, title: "El Templo del Aire del Oeste", desc: "Zuko busca al grupo para disculparse y ofrecerse como maestro de fuego control de Aang. El grupo desconfía, excepto Toph." },
+  { id: 13, title: "Los maestros del Fuego Control", desc: "Zuko pierde su fuego por falta de ira. Él y Aang viajan con los Guerreros del Sol para aprender de los últimos dragones." },
+  { id: 14, title: "La roca hirviente (Parte 1)", desc: "Sokka y Zuko se infiltran en la prisión volcánica más segura del imperio para rescatar al capturado Hakoda." },
+  { id: 15, title: "La roca hirviente (Parte 2)", desc: "Con la ayuda de Suki y un motín, intentan escapar en góndola. Azula es traicionada por Mai y Ty Lee para salvar a Zuko." },
+  { id: 16, title: "Los invasores del Sur", desc: "Zuko ayuda a Katara a buscar al soldado de la Nación del Fuego que asesinó a su madre para que ella halle justicia." },
+  { id: 17, title: "Los actores de la Isla Ember", desc: "El grupo asiste a una parodia teatral de sus propias aventuras. Se divierten con las exageraciones y temen el trágico final." },
+  { id: 18, title: "El cometa de Sozin (Parte 1)", desc: "Aang debate si debe asesinar al Señor del Fuego Ozai. Desaparece misteriosamente y despierta sobre una isla flotante." },
+  { id: 19, title: "El cometa de Sozin (Parte 2)", desc: "El Loto Blanco se moviliza para liberar Ba Sing Se. Aang aprende de un León Tortuga la técnica ancestral de la Energía Control." },
+  { id: 20, title: "El cometa de Sozin (Parte 3)", desc: "Zuko y Katara viajan a la capital para detener la coronación de Azula. Zuko cae herido y Katara lucha sola contra Azula." },
+  { id: 21, title: "El cometa de Sozin (Parte 4)", desc: "Aang derrota a Ozai quitándole sus poderes de forma pacífica. La guerra termina, Zuko es coronado y Aang y Katara se abrazan." }
+];

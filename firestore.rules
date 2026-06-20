@@ -1,0 +1,70 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function isAdmin() {
+      return signedIn()
+        && (
+          request.auth.token.email == "carenvivianagomezramon@gmail.com"
+          || (
+            exists(/databases/$(database)/documents/usuarios/$(request.auth.uid))
+            && get(/databases/$(database)/documents/usuarios/$(request.auth.uid)).data.rol == "admin"
+          )
+        );
+    }
+
+    match /usuarios/{uid} {
+      // Nadie excepto Caren puede asignarse o cambiarse a rol admin.
+      allow create: if signedIn()
+        && request.auth.uid == uid
+        && (request.auth.token.email == "carenvivianagomezramon@gmail.com"
+          || request.resource.data.rol != "admin");
+      allow read: if signedIn() && (request.auth.uid == uid || isAdmin());
+      allow update: if isAdmin()
+        || (signedIn()
+          && request.auth.uid == uid
+          && request.resource.data.rol == resource.data.rol
+          && resource.data.rol != "admin");
+      allow delete: if isAdmin();
+    }
+
+    // Contenido de Avatar: visible para usuarios autenticados y editable por admin.
+    match /personajes/{document} { allow read: if signedIn(); allow write: if isAdmin(); }
+    match /episodios/{document} { allow read: if signedIn(); allow write: if isAdmin(); }
+    match /poemas/{document} { allow read: if signedIn(); allow write: if isAdmin(); }
+    match /aniversarios/{document} { allow read: if signedIn(); allow write: if isAdmin(); }
+    match /fechas_especiales/{document} { allow read: if signedIn(); allow write: if isAdmin(); }
+    match /mensajes_especiales/{document} { allow read: if signedIn(); allow write: if isAdmin(); }
+    match /linea_tiempo/{document} { allow read: if signedIn(); allow write: if isAdmin(); }
+    match /configuracion/{document} { allow read: if signedIn(); allow write: if isAdmin(); }
+    match /quiz_preguntas/{document} { allow read: if signedIn(); allow write: if isAdmin(); }
+
+    match /sorpresas/{document} {
+      allow read: if signedIn();
+      allow write: if isAdmin();
+    }
+
+    match /notificaciones/{document} {
+      allow read: if signedIn();
+      allow write: if isAdmin();
+    }
+
+    match /historial_navegacion/{document} {
+      allow create: if signedIn();
+      allow read: if isAdmin();
+    }
+
+    match /quiz_resultados/{document} {
+      allow create: if signedIn();
+      allow read: if isAdmin();
+    }
+
+    match /juego_progreso/{uid} {
+      allow read, write: if signedIn() && (request.auth.uid == uid || isAdmin());
+    }
+  }
+}
