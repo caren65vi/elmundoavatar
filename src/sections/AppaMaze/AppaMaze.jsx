@@ -693,19 +693,19 @@ export default function AppaMaze({ user }) {
             </button>
 
             <span style={{ fontSize: "0.78rem", color: "var(--text-muted)", fontFamily: "Outfit" }}>
-              {level + 1} / 6
+              {level + 1} / 12
             </span>
 
             <button
               onClick={nextLevel}
-              disabled={level === 5}
+              disabled={level === 11}
               style={{
                 display: "flex", alignItems: "center", gap: "6px",
                 padding: "8px 16px", borderRadius: "10px", border: "1.5px solid var(--primary-color)",
-                background: level === 5 ? "rgba(255,255,255,0.05)" : "rgba(255,51,102,0.12)",
-                color: level === 5 ? "var(--text-muted)" : "var(--primary-color)",
+                background: level === 11 ? "rgba(255,255,255,0.05)" : "rgba(255,51,102,0.12)",
+                color: level === 11 ? "var(--text-muted)" : "var(--primary-color)",
                 fontFamily: "Outfit", fontWeight: "600", fontSize: "0.85rem",
-                cursor: level === 5 ? "not-allowed" : "pointer", opacity: level === 5 ? 0.4 : 1,
+                cursor: level === 11 ? "not-allowed" : "pointer", opacity: level === 11 ? 0.4 : 1,
                 transition: "all 0.2s"
               }}
             >
