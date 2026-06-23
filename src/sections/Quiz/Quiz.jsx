@@ -1,6 +1,7 @@
 import "./Quiz.css";
 import React, { useState, useEffect } from "react";
-import { generateAllQuestions } from "../../quizQuestions";
+import { generateAllQuestions, getQuestionCategory } from "../../quizQuestions";
+import QuizCategorySelector, { quizCategories } from "./QuizCategorySelector";
 import { db } from "../../Firebase/config";
 import { addDoc, collection, getDocs, orderBy, query } from "firebase/firestore";
 import { Sparkles, RefreshCw, Award } from "lucide-react";
@@ -17,6 +18,7 @@ export default function Quiz({ user }) {
   const [quizFinished, setQuizFinished] = useState(false);
   const [resultCharacter, setResultCharacter] = useState(null);
   const [savingResult, setSavingResult] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState(null);
 
   useEffect(() => {
     const loadQuestionPool = async () => {
@@ -33,12 +35,19 @@ export default function Quiz({ user }) {
         console.warn("No se pudo cargar el quiz desde Firestore; se usarán preguntas locales.", error);
       }
 
-      setAllQuestions(pool);
-      setQuizQuestions([...pool].sort(() => Math.random() - 0.5).slice(0, 15));
+      setAllQuestions(pool.map((question) => ({ ...question, category: question.category || getQuestionCategory(question) })));
     };
 
     loadQuestionPool();
   }, []);
+
+  const startCategoryQuiz = (category) => {
+    const categoryQuestions = allQuestions.filter((question) => question.category === category);
+    setSelectedCategory(category);
+    setQuizQuestions([...categoryQuestions].sort(() => Math.random() - 0.5).slice(0, 15));
+    setCurrentIdx(0); setScore(0); setSelectedOpt(null); setAnswerStatus(null);
+    setAnswers({}); setCharacterScores({}); setQuizFinished(false); setResultCharacter(null);
+  };
 
   const handleSelectOption = (optIdx) => {
     const currentQ = quizQuestions[currentIdx];
@@ -123,6 +132,7 @@ export default function Quiz({ user }) {
         userName: user.apodo,
         score: score,
         totalQuestions: quizQuestions.length,
+        category: selectedCategory,
         characterObtained: finalProfile.name,
         timestamp: new Date().toISOString()
       });
@@ -134,7 +144,7 @@ export default function Quiz({ user }) {
   };
 
   const restartQuiz = () => {
-    const shuffled = [...allQuestions].sort(() => Math.random() - 0.5);
+    const shuffled = allQuestions.filter((question) => question.category === selectedCategory).sort(() => Math.random() - 0.5);
     setQuizQuestions(shuffled.slice(0, 15));
     setCurrentIdx(0);
     setScore(0);
@@ -146,17 +156,22 @@ export default function Quiz({ user }) {
     setResultCharacter(null);
   };
 
-  if (quizQuestions.length === 0) {
+  if (allQuestions.length === 0) {
     return <div style={{ color: "var(--text-muted)", fontSize: "1.1rem" }}>Cargando Quiz de Sabiduría...</div>;
   }
 
+  if (!selectedCategory) {
+    return <QuizCategorySelector questions={allQuestions} onStart={startCategoryQuiz} />;
+  }
+
   const currentQuestion = quizQuestions[currentIdx];
+  const categoryTitle = quizCategories.find((category) => category.id === selectedCategory)?.title;
 
   return (
     <div className="quiz-wrapper">
       <div className="quiz-header">
         <h1 className="quiz-title">
-          Quiz de Personajes
+          {categoryTitle}
         </h1>
         <p className="quiz-subtitle">
           Pregunta {currentIdx + 1} de {quizQuestions.length} — Responde y descubre qué personaje eres.
@@ -272,6 +287,9 @@ export default function Quiz({ user }) {
           >
             <RefreshCw size={16} />
             <span>Jugar de Nuevo</span>
+          </button>
+          <button type="button" className="quiz-back-to-categories" onClick={() => setSelectedCategory(null)}>
+            Elegir otra categoría
           </button>
         </div>
       )}

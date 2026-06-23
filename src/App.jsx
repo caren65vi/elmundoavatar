@@ -26,7 +26,6 @@ import Credits from "./sections/Credits/Credits";
 
 // Components
 import Navigation from "./components/Navigation/Navigation";
-import LockScreenSim from "./components/LockScreenSim/LockScreenSim";
 import Tutorial from "./components/Tutorial/Tutorial";
 
 // Protected Route Guard for logged in users
@@ -123,8 +122,6 @@ function MainAppLayout({ defaultTab }) {
   const [showTutorial, setShowTutorial] = useState(false);
   
   // Custom notifications / Lockscreen overlay
-  const [showLockScreen, setShowLockScreen] = useState(false);
-  const [lockScreenMsg, setLockScreenMsg] = useState("");
 
   // Easter Egg found symbols
   const [foundSymbols, setFoundSymbols] = useState({
@@ -213,7 +210,7 @@ function MainAppLayout({ defaultTab }) {
       console.warn("Firestore surprise listener blocked by permissions.", err);
     });
 
-    // Notifications (triggers the lockscreen simulator)
+    // Notificaciones nativas del navegador: no se muestra ningún aviso dentro de la página.
     const unsubNotif = onSnapshot(collection(db, "notificaciones"), (snapshot) => {
       snapshot.docChanges().forEach((change) => {
         if (change.type === "added") {
@@ -222,15 +219,16 @@ function MainAppLayout({ defaultTab }) {
           const now = new Date().getTime();
           const diffSeconds = (now - notifTime) / 1000;
 
-          // Trigger phone lockscreen overlay if message is recent
+          // Solo se muestran mensajes recién enviados, no el historial al abrir la app.
           if (diffSeconds < 10) {
-            setLockScreenMsg(data.title + ": " + data.message);
-            setShowLockScreen(true);
-            if (Notification.permission === "granted") {
-              new Notification(data.title || "Un mensaje de Appa", {
+            if (typeof Notification !== "undefined" && Notification.permission === "granted") {
+              const notification = new Notification(data.title || "Un mensaje de Appa", {
                 body: data.message || "Tienes algo especial esperándote.",
-                icon: "/appa.png"
+                icon: "/appa.png",
+                badge: "/appa.png",
+                tag: `avatar-message-${change.doc.id}`
               });
+              notification.onclick = () => window.focus();
             }
           }
         }
@@ -571,20 +569,6 @@ function MainAppLayout({ defaultTab }) {
         <img src="/appa.png" alt="Appa" style={{ width: "100%", height: "100%", objectFit: "contain", filter: "drop-shadow(0 4px 8px rgba(0,0,0,0.5))" }} />
       </div>
       {appaBubble && <div className="appa-bubble">{appaBubble}</div>}
-
-      {showLockScreen && (
-        <div className="modal-overlay" style={{ zIndex: 99998 }} onClick={() => setShowLockScreen(false)}>
-          <div onClick={(e) => e.stopPropagation()} style={{ position: "relative" }}>
-            <LockScreenSim
-              onOpenPoem={() => {
-                setActiveTab("poems");
-                setShowLockScreen(false);
-              }}
-              customMessage={lockScreenMsg}
-            />
-          </div>
-        </div>
-      )}
 
       {showTutorial && <Tutorial onClose={handleTutorialClose} />}
 

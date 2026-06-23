@@ -1,4 +1,10 @@
 .quiz-header { margin-bottom: 30px; text-align: left; }
+.quiz-category-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 16px; }
+.quiz-category-card { min-height: 190px; padding: 22px; border: 1px solid var(--border-color); border-radius: 16px; background: var(--bg-panel); color: #fff; cursor: pointer; text-align: left; transition: transform .2s ease, box-shadow .2s ease; }
+.quiz-category-card:hover:not(:disabled) { transform: translateY(-4px); box-shadow: 0 14px 28px rgba(0,0,0,.3); }.quiz-category-card:disabled { cursor: not-allowed; opacity: .45; }
+.quiz-category-card--agua { border-color: #1b6ca8; }.quiz-category-card--tierra { border-color: #4a7c59; }.quiz-category-card--fuego { border-color: #c0392b; }.quiz-category-card--aire { border-color: #e8b86d; }
+.quiz-category-card__title, .quiz-category-card__description, .quiz-category-card__count { display: block; }.quiz-category-card__title { margin-top: 16px; font-family: Cinzel, serif; font-size: 1rem; font-weight: 700; }.quiz-category-card__description { margin-top: 8px; color: var(--text-muted); font-size: .86rem; line-height: 1.4; }.quiz-category-card__count { margin-top: 15px; color: var(--primary-color); font-size: .8rem; font-weight: 700; }
+.quiz-back-to-categories { display: block; margin: 14px auto 0; border: 0; background: transparent; color: var(--text-muted); cursor: pointer; font: inherit; }
 .quiz-title { margin: 0 0 10px; color: var(--primary-color); font-family: "Cinzel Decorative"; font-size: 1.8rem; text-shadow: var(--neon-glow); }
 .quiz-subtitle { margin: 0; color: var(--text-muted); font-family: Outfit, sans-serif; font-size: .95rem; }
 .quiz-card, .quiz-results { background: var(--bg-panel); border-radius: 16px; text-align: center; backdrop-filter: blur(10px); }

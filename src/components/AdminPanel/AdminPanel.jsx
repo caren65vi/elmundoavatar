@@ -221,6 +221,13 @@ export default function AdminPanel({ user }) {
         createdBy: user.correo
       });
 
+      await addDoc(collection(db, "notificaciones"), {
+        title: "Nueva fecha especial 💖",
+        message: dateTitle,
+        type: "fecha_especial",
+        timestamp: new Date().toISOString()
+      });
+
       setDateTitle("");
       setDateVal("");
       setDateDesc("");
@@ -326,6 +333,19 @@ export default function AdminPanel({ user }) {
         log(`✅ ${questions.length} preguntas del quiz agregadas`);
       } else {
         log(`⏭️ Preguntas del quiz ya existen (${quizQuestionsSnap.size})`);
+      }
+
+      // Actualiza también las preguntas ya existentes: las tarjetas del quiz necesitan su categoría.
+      if (!quizQuestionsSnap.empty) {
+        const categorizedQuestions = generateAllQuestions();
+        categorizedQuestions.forEach(({ id, ...question }) => {
+          batch.set(doc(db, "quiz_preguntas", `aang_${String(id).padStart(3, "0")}`), {
+            ...question,
+            sourceId: id,
+            series: "La leyenda de Aang"
+          });
+        });
+        log(`✅ ${categorizedQuestions.length} preguntas del quiz actualizadas con categorías`);
       }
 
       const configSnap = await getDoc(doc(db, "configuracion", "aniversario"));

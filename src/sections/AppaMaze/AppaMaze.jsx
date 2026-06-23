@@ -7,65 +7,95 @@ import { ArrowLeft, ArrowRight, ArrowUp, ArrowDown, Sparkles, RefreshCw } from "
 // Maze definition matrices (12x12)
 // 0: path, 1: wall, 2: start, 3: goal
 const levelMazes = [
-  // Level 1: Tribu Agua (Blue theme)
+  // Nivel 1 — Fácil (basado en laberinto simple imagen)
   [
-    [1,1,1,1,1,1,1,1,1,1,1,1],
-    [1,2,0,0,0,1,0,0,0,0,0,1],
-    [1,1,1,0,1,1,0,1,1,1,0,1],
-    [1,0,0,0,0,0,0,0,0,1,0,1],
-    [1,0,1,1,1,1,1,1,0,1,0,1],
-    [1,0,1,0,0,0,0,1,0,0,0,1],
-    [1,0,1,0,1,1,0,1,1,1,1,1],
-    [1,0,0,0,1,0,0,0,0,0,0,1],
-    [1,1,1,1,1,0,1,1,1,1,0,1],
+    [1,1,2,1,1,1,1,1,1,1,1,1],
     [1,0,0,0,0,0,1,0,0,0,0,1],
-    [1,0,1,1,1,1,1,0,1,1,3,1],
-    [1,1,1,1,1,1,1,1,1,1,1,1]
-  ],
-  // Level 2: Reino Tierra (Green theme)
-  [
-    [1,1,1,1,1,1,1,1,1,1,1,1],
-    [1,2,1,0,0,0,0,0,0,0,0,1],
-    [1,0,1,0,1,1,1,1,1,1,0,1],
-    [1,0,1,0,1,0,0,0,0,1,0,1],
-    [1,0,0,0,1,0,1,1,0,1,0,1],
-    [1,1,1,0,1,0,1,3,0,1,0,1],
-    [1,0,0,0,1,0,1,1,1,1,0,1],
-    [1,0,1,1,1,0,0,0,0,0,0,1],
-    [1,0,0,0,1,1,1,1,1,1,1,1],
-    [1,1,1,0,0,0,0,0,0,0,0,1],
-    [1,0,0,0,1,1,1,1,1,1,0,1],
-    [1,1,1,1,1,1,1,1,1,1,1,1]
-  ],
-  // Level 3: Nación del Fuego (Red theme)
-  [
-    [1,1,1,1,1,1,1,1,1,1,1,1],
-    [1,2,0,0,0,1,0,0,0,0,0,1],
-    [1,1,1,1,0,1,0,1,1,1,0,1],
-    [1,0,0,0,0,1,0,1,0,0,0,1],
-    [1,0,1,1,1,1,0,1,0,1,1,1],
-    [1,0,1,0,0,0,0,0,0,0,0,1],
-    [1,0,1,0,1,1,1,1,1,1,0,1],
-    [1,0,1,0,1,0,0,0,0,1,0,1],
-    [1,0,0,0,1,0,1,1,0,1,0,1],
-    [1,1,1,1,1,0,1,3,0,1,0,1],
-    [1,0,0,0,0,0,1,1,1,1,0,1],
-    [1,1,1,1,1,1,1,1,1,1,1,1]
-  ],
-  // Level 4: Templos del Aire (Yellow theme)
-  [
-    [1,1,1,1,1,1,1,1,1,1,1,1],
-    [1,2,0,0,1,0,0,0,1,0,0,1],
-    [1,1,1,0,1,0,1,0,1,0,1,1],
-    [1,0,0,0,0,0,1,0,0,0,0,1],
-    [1,0,1,1,1,1,1,1,1,1,0,1],
-    [1,0,1,0,0,0,0,0,0,1,0,1],
+    [1,0,1,1,1,0,1,0,1,1,0,1],
+    [1,0,1,0,0,0,1,0,0,1,0,1],
     [1,0,1,0,1,1,1,1,0,1,0,1],
-    [1,0,0,0,1,3,0,1,0,0,0,1],
-    [1,1,1,1,1,1,0,1,1,1,1,1],
-    [1,0,0,0,0,1,0,0,0,0,0,1],
-    [1,0,1,1,0,0,0,1,1,1,0,1],
-    [1,1,1,1,1,1,1,1,1,1,1,1]
+    [1,0,0,0,0,0,0,1,0,0,0,1],
+    [1,1,1,1,1,0,1,1,1,1,0,1],
+    [1,0,0,0,1,0,0,0,0,0,0,1],
+    [1,0,1,0,1,1,1,1,1,1,1,1],
+    [1,0,1,0,0,0,0,0,0,0,0,1],
+    [1,0,1,1,1,1,1,0,1,1,0,1],
+    [1,0,0,0,0,0,0,0,0,1,3,1]
+  ],
+  // Nivel 2 — Fácil-Medio
+  [
+    [1,1,2,1,1,1,1,1,1,1,1,1],
+    [1,0,0,0,1,0,0,0,0,0,0,1],
+    [1,0,1,0,1,0,1,1,1,1,0,1],
+    [1,0,1,0,0,0,1,0,0,1,0,1],
+    [1,0,1,1,1,0,1,0,1,1,0,1],
+    [1,0,0,0,1,0,0,0,1,0,0,1],
+    [1,1,1,0,1,1,1,0,1,0,1,1],
+    [1,0,0,0,0,0,1,0,0,0,1,1],
+    [1,0,1,1,1,0,1,1,1,0,0,1],
+    [1,0,1,0,0,0,0,0,1,1,0,1],
+    [1,0,0,0,1,1,1,0,0,0,0,1],
+    [1,1,1,1,1,1,1,1,1,1,3,1]
+  ],
+  // Nivel 3 — Medio (laberinto mediano imagen)
+  [
+    [1,1,2,1,1,1,1,1,1,1,1,1],
+    [1,0,0,0,0,1,0,0,0,1,0,1],
+    [1,0,1,1,0,1,0,1,0,1,0,1],
+    [1,0,0,1,0,0,0,1,0,0,0,1],
+    [1,1,0,1,1,1,0,1,1,1,0,1],
+    [1,0,0,0,0,1,0,0,0,1,0,1],
+    [1,0,1,1,0,1,1,1,0,1,0,1],
+    [1,0,1,0,0,0,0,1,0,0,0,1],
+    [1,0,1,0,1,1,0,1,1,1,0,1],
+    [1,0,0,0,1,0,0,0,0,1,0,1],
+    [1,1,1,0,1,0,1,1,0,0,0,1],
+    [1,1,1,1,1,1,1,1,1,1,3,1]
+  ],
+  // Nivel 4 — Medio-Difícil
+  [
+    [1,1,2,1,1,1,1,1,1,1,1,1],
+    [1,0,0,0,1,0,0,0,0,0,0,1],
+    [1,1,1,0,1,0,1,1,1,1,0,1],
+    [1,0,0,0,1,0,1,0,0,0,0,1],
+    [1,0,1,1,1,0,1,0,1,1,1,1],
+    [1,0,0,0,0,0,1,0,0,0,0,1],
+    [1,1,1,1,1,0,1,1,1,1,0,1],
+    [1,0,0,0,1,0,0,0,0,1,0,1],
+    [1,0,1,0,1,1,1,1,0,1,0,1],
+    [1,0,1,0,0,0,0,1,0,0,0,1],
+    [1,0,1,1,1,1,0,1,1,1,0,1],
+    [1,0,0,0,0,0,0,0,0,1,3,1]
+  ],
+  // Nivel 5 — Difícil (laberinto complejo imagen)
+  [
+    [1,1,2,1,1,1,1,1,1,1,1,1],
+    [1,0,0,0,0,0,1,0,0,0,0,1],
+    [1,0,1,1,1,0,1,0,1,1,0,1],
+    [1,0,1,0,0,0,0,0,1,0,0,1],
+    [1,0,1,0,1,1,1,1,1,0,1,1],
+    [1,0,0,0,1,0,0,0,0,0,1,1],
+    [1,1,1,0,1,0,1,1,1,0,0,1],
+    [1,0,0,0,1,0,1,0,0,0,0,1],
+    [1,0,1,1,1,0,1,0,1,1,0,1],
+    [1,0,0,0,0,0,0,0,1,0,0,1],
+    [1,1,1,1,1,1,1,0,1,0,1,1],
+    [1,1,1,1,1,1,1,1,1,1,3,1]
+  ],
+  // Nivel 6 — Muy Difícil
+  [
+    [1,1,2,1,1,1,1,1,1,1,1,1],
+    [1,0,0,0,1,0,0,0,1,0,0,1],
+    [1,0,1,0,1,0,1,0,1,0,1,1],
+    [1,0,1,0,0,0,1,0,0,0,1,1],
+    [1,0,1,1,1,0,1,1,1,0,0,1],
+    [1,0,0,0,1,0,0,0,1,1,0,1],
+    [1,1,1,0,1,1,1,0,0,0,0,1],
+    [1,0,0,0,0,0,1,0,1,1,0,1],
+    [1,0,1,1,1,0,1,0,1,0,0,1],
+    [1,0,1,0,0,0,1,0,0,0,1,1],
+    [1,0,0,0,1,1,1,1,1,0,0,1],
+    [1,1,1,1,1,1,1,1,1,1,3,1]
   ]
 ];
 
@@ -75,32 +105,48 @@ const levelConfigs = [
     bgColor: "#0c2340",
     wallColor: "#1b6ca8",
     hazardEmoji: "🧊",
-    hazardName: "Soldados del Fuego e Icebergs",
-    speed: 1.5
+    hazardName: "Icebergs",
+    speed: 1.2
   },
   {
-    name: "Nivel 2: Muros de Ba Sing Se 🌱",
+    name: "Nivel 2: Pantanos del Espíritu 🌿",
+    bgColor: "#0d1f0e",
+    wallColor: "#2e7d32",
+    hazardEmoji: "🐊",
+    hazardName: "Criaturas del Pantano",
+    speed: 1.7
+  },
+  {
+    name: "Nivel 3: Muros de Ba Sing Se 🌱",
     bgColor: "#142516",
     wallColor: "#4a7c59",
     hazardEmoji: "🪨",
-    hazardName: "Agentes del Dai Li y Rocas",
+    hazardName: "Agentes del Dai Li",
     speed: 2.2
-  },
-  {
-    name: "Nivel 3: Caldera del Volcán 🔥",
-    bgColor: "#230b0b",
-    wallColor: "#c0392b",
-    hazardEmoji: "🚀",
-    hazardName: "Naves de Guerra y Columnas de Fuego",
-    speed: 3.0
   },
   {
     name: "Nivel 4: Templos Celestiales del Aire 💨",
     bgColor: "#0f1c2c",
     wallColor: "#e8b86d",
     hazardEmoji: "🌪️",
-    hazardName: "Viento Turbulento y Globos",
-    speed: 3.8
+    hazardName: "Viento Turbulento",
+    speed: 2.8
+  },
+  {
+    name: "Nivel 5: Caldera del Volcán 🔥",
+    bgColor: "#230b0b",
+    wallColor: "#c0392b",
+    hazardEmoji: "🚀",
+    hazardName: "Columnas de Fuego",
+    speed: 3.4
+  },
+  {
+    name: "Nivel 6: Palacio del Rey Ozai ⚡",
+    bgColor: "#1a0a00",
+    wallColor: "#b7410e",
+    hazardEmoji: "⚡",
+    hazardName: "Rayos del Rey Ozai",
+    speed: 4.0
   }
 ];
 
@@ -136,31 +182,44 @@ export default function AppaMaze({ user }) {
     return { x: 1, y: 1 };
   };
 
-  // Per-level hazard starting positions (all verified to be on open cells)
+  // Per-level hazard starting positions (on open cells)
   const levelHazardPositions = [
-    // Level 1 — Tribu Agua: positions (col, row) all on value=0 cells
+    // Nivel 1
     [
-      { x: 7, y: 1, dirX: 1,  dirY: 0  },  // horizontal in row 1 cols 6-10
-      { x: 3, y: 7, dirX: 1,  dirY: 0  },  // horizontal in row 7 cols 1-3
-      { x: 8, y: 9, dirX: -1, dirY: 0  }   // horizontal in row 9 cols 7-10
+      { x: 4, y: 1, dirX: 1,  dirY: 0 },
+      { x: 2, y: 7, dirX: 1,  dirY: 0 },
+      { x: 8, y: 9, dirX: -1, dirY: 0 }
     ],
-    // Level 2 — Ba Sing Se: col 3 row 7 was a wall, moved to col 7 row 7
+    // Nivel 2
     [
-      { x: 5, y: 1, dirX: 1,  dirY: 0  },  // horizontal in row 1
-      { x: 7, y: 7, dirX: -1, dirY: 0  },  // horizontal in row 7 cols 5-10
-      { x: 5, y: 9, dirX: 1,  dirY: 0  }   // horizontal in row 9
+      { x: 5, y: 1, dirX: 1,  dirY: 0 },
+      { x: 2, y: 7, dirX: 1,  dirY: 0 },
+      { x: 5, y: 10, dirX: 1, dirY: 0 }
     ],
-    // Level 3 — Nación del Fuego: col 5 row 1 was a wall, moved to col 7 row 1
+    // Nivel 3
     [
-      { x: 7, y: 1, dirX: 1,  dirY: 0  },  // horizontal in row 1 cols 6-10
-      { x: 5, y: 7, dirX: 1,  dirY: 0  },  // horizontal in row 7 cols 5-8
-      { x: 3, y: 5, dirX: 0,  dirY: 1  }   // vertical in col 3 rows 5-8
+      { x: 4, y: 1, dirX: 1,  dirY: 0 },
+      { x: 3, y: 5, dirX: 1,  dirY: 0 },
+      { x: 3, y: 9, dirX: 1,  dirY: 0 }
     ],
-    // Level 4 — Templos del Aire: all fine
+    // Nivel 4
     [
-      { x: 5, y: 1, dirX: 1,  dirY: 0  },  // short bounce cols 5-7 row 1
-      { x: 5, y: 5, dirX: 1,  dirY: 0  },  // wide bounce cols 3-8 row 5
-      { x: 7, y: 9, dirX: -1, dirY: 0  }   // bounce cols 6-10 row 9
+      { x: 5, y: 1, dirX: 1,  dirY: 0 },
+      { x: 2, y: 5, dirX: 0,  dirY: 1 },
+      { x: 7, y: 9, dirX: -1, dirY: 0 }
+    ],
+    // Nivel 5
+    [
+      { x: 4, y: 1, dirX: 1,  dirY: 0 },
+      { x: 5, y: 5, dirX: 1,  dirY: 0 },
+      { x: 3, y: 9, dirX: 1,  dirY: 0 }
+    ],
+    // Nivel 6
+    [
+      { x: 5, y: 1, dirX: 1,  dirY: 0 },
+      { x: 2, y: 5, dirX: 0,  dirY: 1 },
+      { x: 5, y: 9, dirX: 1,  dirY: 0 },
+      { x: 9, y: 5, dirX: 0,  dirY: 1 }
     ]
   ];
 
@@ -345,21 +404,22 @@ export default function AppaMaze({ user }) {
   };
 
   const handleLevelComplete = async () => {
-    if (level < 3) {
+    if (level < 5) {
       setGameWon(true);
     } else {
       setGameCompleted(true);
-      // Save game completed in Firestore
       setSavingProgress(true);
       try {
         if (!user?.uid) throw new Error("No hay una sesión válida para guardar el progreso.");
         await setDoc(doc(db, "juego_progreso", user.uid), {
           laberinto: {
-            nivelActual: 4,
+            nivelActual: 6,
             nivel1Completado: true,
             nivel2Completado: true,
             nivel3Completado: true,
             nivel4Completado: true,
+            nivel5Completado: true,
+            nivel6Completado: true,
             cartaDesamorDesbloqueada: true,
             mejorTiempo: 0,
             completado: true
@@ -375,7 +435,14 @@ export default function AppaMaze({ user }) {
   };
 
   const nextLevel = () => {
-    setLevel((prev) => prev + 1);
+    if (level < 5) setLevel((prev) => prev + 1);
+  };
+
+  const prevLevel = () => {
+    if (level > 0) {
+      setLevel((prev) => prev - 1);
+      setGameWon(false);
+    }
   };
 
   const resetGame = () => {
@@ -409,6 +476,45 @@ export default function AppaMaze({ user }) {
             height={cellSize * gridCount}
             className="maze-canvas"
           />
+
+          {/* Navegación de niveles */}
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "14px", marginBottom: "4px", gap: "10px" }}>
+            <button
+              onClick={prevLevel}
+              disabled={level === 0}
+              style={{
+                display: "flex", alignItems: "center", gap: "6px",
+                padding: "8px 16px", borderRadius: "10px", border: "1.5px solid var(--primary-color)",
+                background: level === 0 ? "rgba(255,255,255,0.05)" : "rgba(255,51,102,0.12)",
+                color: level === 0 ? "var(--text-muted)" : "var(--primary-color)",
+                fontFamily: "Outfit", fontWeight: "600", fontSize: "0.85rem",
+                cursor: level === 0 ? "not-allowed" : "pointer", opacity: level === 0 ? 0.4 : 1,
+                transition: "all 0.2s"
+              }}
+            >
+              <ArrowLeft size={15} /> Anterior
+            </button>
+
+            <span style={{ fontSize: "0.78rem", color: "var(--text-muted)", fontFamily: "Outfit" }}>
+              {level + 1} / 6
+            </span>
+
+            <button
+              onClick={nextLevel}
+              disabled={level === 5}
+              style={{
+                display: "flex", alignItems: "center", gap: "6px",
+                padding: "8px 16px", borderRadius: "10px", border: "1.5px solid var(--primary-color)",
+                background: level === 5 ? "rgba(255,255,255,0.05)" : "rgba(255,51,102,0.12)",
+                color: level === 5 ? "var(--text-muted)" : "var(--primary-color)",
+                fontFamily: "Outfit", fontWeight: "600", fontSize: "0.85rem",
+                cursor: level === 5 ? "not-allowed" : "pointer", opacity: level === 5 ? 0.4 : 1,
+                transition: "all 0.2s"
+              }}
+            >
+              Siguiente <ArrowRight size={15} />
+            </button>
+          </div>
 
           {/* D-Pad controls for Mobile */}
           <div className="maze-controls">

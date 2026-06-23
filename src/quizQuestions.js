@@ -722,5 +722,19 @@ export function generateAllQuestions() {
     paddingIndex++;
   }
 
-  return allQuestions;
+  return allQuestions.map((question) => ({ ...question, category: getQuestionCategory(question) }));
+}
+
+export function getQuestionCategory(question) {
+  const text = `${question.question} ${question.options?.join(" ") || ""}`.toLowerCase();
+  if (/katara|hama|pakku|kya|sangre|tribu agua del sur/.test(text)) return "katara";
+  if (/sokka|yue|piandao|bumer|meteorito|espada/.test(text)) return "sokka";
+  if (/zuko|azula|ozai|iroh|naci[oó]n del fuego|drag[oó]n del oeste/.test(text)) return "zuko";
+  if (/toph|beifong|metal control|tejon|maestro tierra/.test(text)) return "toph";
+  if (/roku|kyoshi|kuruk|yangchen|koh|esp[ií]ritu|estado avatar|chakra/.test(text)) return "espiritus";
+  if (/ba sing se|omashu|templo|biblioteca|roca hirviente|isla|prisi[oó]n|desierto/.test(text)) return "lugares";
+  if (/dai li|jet|combusti[oó]n|villano|ty lee|mai|general/.test(text)) return "villanos";
+  if (/appa|momo|animal|cometa|pai sho|loto blanco|planeador|fruta|t[eé]/.test(text)) return "objetos";
+  if (/eclipse|batalla|final|invasi[oó]n|sol negro|flota|a[eé]rea/.test(text)) return "trama";
+  return "aang";
 }
