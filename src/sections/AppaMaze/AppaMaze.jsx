@@ -172,15 +172,21 @@ export default function AppaMaze({ user }) {
   const canvasRef = useRef(null);
   const appaImgRef = useRef(null);
   const aangHeadImgRef = useRef(null);
+  const [imgsReady, setImgsReady] = useState(false);
   const gridCount = 12;
   const cellSize = 30; // pixels per grid cell
 
   useEffect(() => {
+    let loaded = 0;
+    const onLoad = () => { loaded++; if (loaded >= 2) setImgsReady(true); };
+
     const img = new Image();
+    img.onload = onLoad;
     img.src = "/appa.png";
     appaImgRef.current = img;
 
     const aangImg = new Image();
+    aangImg.onload = onLoad;
     aangImg.src = aangHead;
     aangHeadImgRef.current = aangImg;
   }, []);
@@ -198,42 +204,42 @@ export default function AppaMaze({ user }) {
 
   // Hazards — todos horizontales (izquierda↔derecha), posiciones en celdas abiertas verificadas
   const levelHazardPositions = [
-    // Nivel 1: fila1 open cols2-4, fila7 open cols5-7, fila9 open cols3-8
-    [
-      { x: 4, y: 1,  dirX:  1, dirY: 0 },
-      { x: 6, y: 7,  dirX:  1, dirY: 0 },
-      { x: 4, y: 9,  dirX:  1, dirY: 0 }
+  // Cada peligro queda en un bolsillo lateral: nunca ocupa la ruta necesaria hacia Aang.
+  [
+      { x: 10, y: 1, dirX:  1, dirY: 0 },
+      { x: 6,  y: 2, dirX:  1, dirY: 0 },
+      { x: 10, y: 5, dirX:  1, dirY: 0 }
     ],
     // Nivel 2: fila1 open, fila7 toda open, fila9 toda open
     [
-      { x: 5, y: 1,  dirX:  1, dirY: 0 },
-      { x: 4, y: 7,  dirX:  1, dirY: 0 },
-      { x: 4, y: 9,  dirX:  1, dirY: 0 }
+      { x: 4, y: 2, dirX:  1, dirY: 0 },
+      { x: 6, y: 2, dirX:  1, dirY: 0 },
+      { x: 8, y: 2, dirX:  1, dirY: 0 }
     ],
     // Nivel 3: fila1 cols2-5, fila6 cols1-8, fila10 cols3-10
     [
-      { x: 4, y: 1,  dirX:  1, dirY: 0 },
-      { x: 4, y: 6,  dirX:  1, dirY: 0 },
-      { x: 4, y: 10, dirX:  1, dirY: 0 }
+      { x: 10, y: 1, dirX:  1, dirY: 0 },
+      { x: 7,  y: 2, dirX:  1, dirY: 0 },
+      { x: 8,  y: 4, dirX:  1, dirY: 0 }
     ],
     // Nivel 4: fila1 cols4-5, fila6 toda open, fila8 toda open
     [
-      { x: 5, y: 1,  dirX:  1, dirY: 0 },
-      { x: 5, y: 6,  dirX:  1, dirY: 0 },
-      { x: 5, y: 8,  dirX:  1, dirY: 0 }
+      { x: 8, y: 2, dirX:  1, dirY: 0 },
+      { x: 4, y: 3, dirX:  1, dirY: 0 },
+      { x: 8, y: 5, dirX:  1, dirY: 0 }
     ],
     // Nivel 5: fila1 cols2-8, fila5 toda open, fila9 cols3-10
     [
-      { x: 4, y: 1,  dirX:  1, dirY: 0 },
-      { x: 5, y: 5,  dirX:  1, dirY: 0 },
-      { x: 4, y: 9,  dirX:  1, dirY: 0 }
+      { x: 10, y: 1, dirX:  1, dirY: 0 },
+      { x: 4,  y: 2, dirX:  1, dirY: 0 },
+      { x: 6,  y: 4, dirX:  1, dirY: 0 }
     ],
     // Nivel 6: filas 1,5,7,9 todas abiertas
     [
-      { x: 5, y: 1,  dirX:  1, dirY: 0 },
-      { x: 4, y: 5,  dirX:  1, dirY: 0 },
-      { x: 6, y: 7,  dirX:  1, dirY: 0 },
-      { x: 4, y: 9,  dirX:  1, dirY: 0 }
+      { x: 1, y: 2, dirX:  1, dirY: 0 },
+      { x: 3, y: 2, dirX:  1, dirY: 0 },
+      { x: 5, y: 2, dirX:  1, dirY: 0 },
+      { x: 7, y: 2, dirX:  1, dirY: 0 }
     ]
   ];
 
@@ -314,7 +320,7 @@ export default function AppaMaze({ user }) {
       ctx.fillText("🐮", px + cellSize / 2, py + cellSize / 2);
     }
 
-  }, [level, playerPosition, hazards]);
+  }, [level, playerPosition, hazards, imgsReady]);
 
   // Animation Loop for Moving Hazards
   useEffect(() => {
