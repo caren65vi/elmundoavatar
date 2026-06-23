@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { db } from "../../Firebase/config";
 import { doc, serverTimestamp, setDoc } from "firebase/firestore";
 import { ArrowLeft, ArrowRight, ArrowUp, ArrowDown, Sparkles, RefreshCw } from "lucide-react";
+import aangHead from "../../assets/cabezaAang.png";
 
 // Maze definition matrices (12x12)
 // 0: path, 1: wall, 2: start (row0 col2), 3: goal (row11 col10)
@@ -170,6 +171,7 @@ export default function AppaMaze({ user }) {
 
   const canvasRef = useRef(null);
   const appaImgRef = useRef(null);
+  const aangHeadImgRef = useRef(null);
   const gridCount = 12;
   const cellSize = 30; // pixels per grid cell
 
@@ -177,6 +179,10 @@ export default function AppaMaze({ user }) {
     const img = new Image();
     img.src = "/appa.png";
     appaImgRef.current = img;
+
+    const aangImg = new Image();
+    aangImg.src = aangHead;
+    aangHeadImgRef.current = aangImg;
   }, []);
 
   // Define starting coordinates for players based on Level matrix
@@ -271,6 +277,11 @@ export default function AppaMaze({ user }) {
           ctx.strokeStyle = "rgba(0,0,0,0.3)";
           ctx.strokeRect(c * cellSize, r * cellSize, cellSize, cellSize);
         } else if (matrix[r][c] === 3) {
+          // Meta: Appa debe llegar hasta Aang. El margen evita que la imagen toque los muros.
+          if (aangHeadImgRef.current?.complete && aangHeadImgRef.current.naturalWidth > 0) {
+            ctx.drawImage(aangHeadImgRef.current, c * cellSize + 3, r * cellSize + 3, cellSize - 6, cellSize - 6);
+            continue;
+          }
           // Draw portal/goal
           ctx.fillStyle = "#ff3366";
           ctx.beginPath();
