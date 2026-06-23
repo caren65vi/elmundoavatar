@@ -1,3 +1,6 @@
+// URLs de imágenes del Avatar Wiki (fandom CDN — Special:FilePath redirige al archivo)
+const W = "https://avatar.fandom.com/wiki/Special:FilePath/";
+
 export const defaultCharacters = [
   {
     id: "aang",
@@ -6,7 +9,8 @@ export const defaultCharacters = [
     role: "El último Maestro Aire y el Avatar de la serie.",
     description: "Un niño divertido, amante de los animales y de gran corazón. Su misión es traer paz al mundo con la ayuda de sus amigos.",
     skill: "Aire Control (Técnica del Planeador y Esfera de Aire)",
-    color: "#E8B86D"
+    color: "#E8B86D",
+    image: W + "Aang.png"
   },
   {
     id: "katara",
@@ -15,7 +19,8 @@ export const defaultCharacters = [
     role: "Maestra Agua de la Tribu Agua del Sur y el soporte del grupo.",
     description: "Determinada, compasiva y maternal. Es la única maestra agua sobreviviente de su tribu y quien enseñó a Aang.",
     skill: "Agua Control y Curación (Técnica de la Serpiente de Agua)",
-    color: "#1B6CA8"
+    color: "#1B6CA8",
+    image: W + "Katara.png"
   },
   {
     id: "sokka",
@@ -24,7 +29,8 @@ export const defaultCharacters = [
     role: "Guerrero no-maestro de la Tribu del Sur y estratega del grupo.",
     description: "Ingenioso, sarcástico y fanático de la carne. Utiliza su bumerán y su espada espacial para combatir.",
     skill: "Estratega, Bumerán y Combate con Espada",
-    color: "#A8D8EA"
+    color: "#A8D8EA",
+    image: W + "Sokka.png"
   },
   {
     id: "toph",
@@ -33,7 +39,8 @@ export const defaultCharacters = [
     role: "Maestra Tierra ciega, creadora del Metal Control.",
     description: "Rebelde, fuerte e independiente. Usa la sismología a través de sus pies descalzos para 'ver' el mundo a su alrededor.",
     skill: "Tierra Control, Metal Control y Sentido Sísmico",
-    color: "#4A7C59"
+    color: "#4A7C59",
+    image: W + "Toph_Beifong.png"
   },
   {
     id: "zuko",
@@ -42,7 +49,8 @@ export const defaultCharacters = [
     role: "Príncipe desterrado de la Nación del Fuego en busca de redención.",
     description: "Intenso y atormentado. Pasa de cazar al Avatar a convertirse en su maestro de Fuego Control y mejor amigo.",
     skill: "Fuego Control y Redirección de Relámpagos",
-    color: "#C0392B"
+    color: "#C0392B",
+    image: W + "Zuko.png"
   },
   {
     id: "iroh",
@@ -51,7 +59,8 @@ export const defaultCharacters = [
     role: "Tío de Zuko, ex-general de la Nación del Fuego y Gran Loto.",
     description: "Amante del té de jazmín y sabio consejero. Es la figura paterna que guía a Zuko hacia la bondad y la paz.",
     skill: "Fuego Control, Generación de Relámpagos e Impresionante Sabiduría",
-    color: "#E67E22"
+    color: "#E67E22",
+    image: W + "Iroh.png"
   },
   {
     id: "azula",
@@ -60,7 +69,8 @@ export const defaultCharacters = [
     role: "Princesa de la Nación del Fuego y prodigio implacable.",
     description: "Calculadora, fría y obsesionada con el poder y el control. Capaz de generar fuego azul de altísima temperatura.",
     skill: "Fuego Azul y Generación de Relámpagos",
-    color: "#C0392B"
+    color: "#C0392B",
+    image: W + "Azula.png"
   },
   {
     id: "suki",
@@ -69,7 +79,8 @@ export const defaultCharacters = [
     role: "Líder de las Guerreras Kyoshi de la Isla Kyoshi.",
     description: "Valiente, ágil e increíble combatiente cuerpo a cuerpo. Utiliza abanicos metálicos de combate y es el amor de Sokka.",
     skill: "Artes Marciales Kyoshi y Combate con Abanicos",
-    color: "#8B6914"
+    color: "#8B6914",
+    image: W + "Suki.png"
   },
   {
     id: "mai",
@@ -78,7 +89,8 @@ export const defaultCharacters = [
     role: "Aliada de Azula y el interés amoroso de Zuko.",
     description: "Apática y de apariencia aburrida, pero sumamente letal lanzando estiletes y cuchillas ocultas.",
     skill: "Lanzamiento de Cuchillas y Precisión Quirúrgica",
-    color: "#1A1A1A"
+    color: "#1A1A1A",
+    image: W + "Mai.png"
   },
   {
     id: "ty_lee",
@@ -87,7 +99,8 @@ export const defaultCharacters = [
     role: "Aliada de Azula y ex-acróbata de circo.",
     description: "Alegre, flexible y carismática. Capaz de bloquear el chi de sus oponentes con golpes rápidos paralizándolos.",
     skill: "Bloqueo de Chi y Acrobacias Avanzadas",
-    color: "#F1C40F"
+    color: "#F1C40F",
+    image: W + "Ty_Lee.png"
   },
   {
     id: "appa",
@@ -96,7 +109,8 @@ export const defaultCharacters = [
     role: "El bisonte volador leal de Aang y guía del grupo.",
     description: "Una criatura gigante de seis patas que vuela agitando su cola plana. Es el transporte oficial de la pandilla Avatar.",
     skill: "Vuelo de Bisonte y Ráfagas de Viento con la Cola",
-    color: "#F5F5F0"
+    color: "#F5F5F0",
+    image: W + "Appa.png"
   },
   {
     id: "momo",
@@ -105,7 +119,8 @@ export const defaultCharacters = [
     role: "Lémur volador inteligente y la mascota divertida del grupo.",
     description: "Curioso, comelón y travieso. Acompaña a Aang desde el Templo del Aire del Sur y es gran amigo de Appa.",
     skill: "Planeo Sigiloso e Increíble Oído",
-    color: "#E8B86D"
+    color: "#E8B86D",
+    image: W + "Momo.png"
   },
   {
     id: "bumi",
@@ -114,7 +129,8 @@ export const defaultCharacters = [
     role: "Rey de Omashu y amigo de la infancia de Aang.",
     description: "Un anciano que parece loco pero que es un genio táctico y uno de los maestros tierra más poderosos del planeta.",
     skill: "Tierra Control Salvaje e Impredecible",
-    color: "#4A7C59"
+    color: "#4A7C59",
+    image: W + "Bumi.png"
   },
   {
     id: "jet",
@@ -123,7 +139,8 @@ export const defaultCharacters = [
     role: "Líder de los Combatientes de la Libertad.",
     description: "Carismático y resentido contra la Nación del Fuego. Utiliza espadas de gancho y lucha por la liberación de su pueblo.",
     skill: "Combate con Espadas de Gancho y Liderazgo Guerrillero",
-    color: "#8B6914"
+    color: "#8B6914",
+    image: W + "Jet.png"
   },
   {
     id: "yue",
@@ -132,7 +149,8 @@ export const defaultCharacters = [
     role: "Princesa de la Tribu Agua del Norte, convertida en el Espíritu de la Luna.",
     description: "Gentil y desinteresada. Sacrificó su vida humana para salvar al Espíritu de la Luna de la destrucción.",
     skill: "Conexión Espiritual con el Agua y la Luna",
-    color: "#A8D8EA"
+    color: "#A8D8EA",
+    image: W + "Yue.png"
   },
   {
     id: "pakku",
@@ -141,7 +159,8 @@ export const defaultCharacters = [
     role: "Maestro Agua del Norte y miembro del Loto Blanco.",
     description: "Tradicionalista y estricto. Inicialmente se negó a enseñar a Katara por ser mujer, pero luego reconoció su talento.",
     skill: "Agua Control Ancestral de Combate",
-    color: "#0D3B66"
+    color: "#0D3B66",
+    image: W + "Pakku.png"
   },
   {
     id: "jeong_jeong",
@@ -150,7 +169,8 @@ export const defaultCharacters = [
     role: "Ex-almirante desertor y miembro del Loto Blanco.",
     description: "Un maestro fuego que ve su poder como una maldición y enseña el autocontrol y la disciplina estricta.",
     skill: "Fuego Control Defensivo (Muros de Fuego)",
-    color: "#C0392B"
+    color: "#C0392B",
+    image: W + "Jeong_Jeong.png"
   },
   {
     id: "piandao",
@@ -159,7 +179,8 @@ export const defaultCharacters = [
     role: "Espadachín legendario y miembro del Loto Blanco.",
     description: "Maestro no-maestro del fuego que enseña el camino de la espada a Sokka. Valora la creatividad y la determinación.",
     skill: "Combate Imbatible con Espada de Acero",
-    color: "#1A1A1A"
+    color: "#1A1A1A",
+    image: W + "Piandao.png"
   },
   {
     id: "combustion",
@@ -168,7 +189,8 @@ export const defaultCharacters = [
     role: "Cazarrecompensas letal contratado por Zuko.",
     description: "Un gigante silencioso con un tercer ojo tatuado en la frente que dispara ráfagas explosivas con la mente.",
     skill: "Combustión Control (Fuego Mental)",
-    color: "#C0392B"
+    color: "#C0392B",
+    image: W + "Combustion_Man.png"
   },
   {
     id: "wan_shi_tong",
@@ -177,7 +199,8 @@ export const defaultCharacters = [
     role: "Espíritu búho guardián de la Gran Biblioteca.",
     description: "Atesora todo el conocimiento del mundo en su biblioteca oculta en el desierto de Si Wong. Desconfía de los humanos.",
     skill: "Poder Espiritual y Sabiduría Universal",
-    color: "#E8B86D"
+    color: "#E8B86D",
+    image: W + "Wan_Shi_Tong.png"
   }
 ];
 

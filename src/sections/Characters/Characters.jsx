@@ -11,6 +11,8 @@ export default function Characters() {
   const [error, setError] = useState(null);
   const [filter, setFilter] = useState("todos");
   const [selectedCharacter, setSelectedCharacter] = useState(null);
+  const [failedImages, setFailedImages] = useState({});
+  const onImgError = (id) => setFailedImages((prev) => ({ ...prev, [id]: true }));
 
   const nationColors = { agua: "#1B6CA8", tierra: "#4A7C59", fuego: "#C0392B", aire: "#E8B86D", espiritu: "#9B7EDE" };
   const inferredSpecies = { appa: "animal", momo: "animal", wan_shi_tong: "espiritu", yue: "espiritu", hei_bai: "espiritu" };
@@ -115,7 +117,9 @@ export default function Characters() {
               className="character-avatar-circle"
               style={{ color: char.color, borderColor: char.color, backgroundColor: `${char.color}15` }}
             >
-              {char.image ? <img className="character-avatar-image" src={char.image} alt={char.name} /> : getNationEmoji(char.nation)}
+              {char.image && !failedImages[char.id]
+                ? <img className="character-avatar-image" src={char.image} alt={char.name} onError={() => onImgError(char.id)} />
+                : getNationEmoji(char.nation)}
             </div>
             <h3 className="character-card-name" style={{ color: "#fff" }}>{char.name}</h3>
             <span className={`character-card-nation ${char.nation}`}>{char.nation}</span>
@@ -136,8 +140,15 @@ export default function Characters() {
             </button>
 
             <div style={{ display: "flex", alignItems: "center", gap: "15px", marginBottom: "20px" }}>
-              <div style={{ width: "70px", height: "70px", borderRadius: "50%", backgroundColor: `${selectedCharacter.color}15`, border: `2px solid ${selectedCharacter.color}`, display: "flex", justifyContent: "center", alignItems: "center", fontSize: "2rem" }}>
-                {getNationEmoji(selectedCharacter.nation)}
+              <div style={{ width: "80px", height: "80px", borderRadius: "50%", backgroundColor: `${selectedCharacter.color}15`, border: `2px solid ${selectedCharacter.color}`, display: "flex", justifyContent: "center", alignItems: "center", fontSize: "2rem", overflow: "hidden", flexShrink: 0 }}>
+                {selectedCharacter.image && !failedImages[selectedCharacter.id] ? (
+                  <img
+                    src={selectedCharacter.image}
+                    alt={selectedCharacter.name}
+                    style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                    onError={() => onImgError(selectedCharacter.id)}
+                  />
+                ) : getNationEmoji(selectedCharacter.nation)}
               </div>
               <div style={{ textAlign: "left" }}>
                 <h2 style={{ fontSize: "1.6rem", color: "#fff", fontFamily: "Cinzel", marginBottom: "4px" }}>{selectedCharacter.name}</h2>
