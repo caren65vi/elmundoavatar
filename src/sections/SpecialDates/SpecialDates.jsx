@@ -1,5 +1,5 @@
 import "./SpecialDates.css";
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { defaultSpecialDates } from "../../mockData";
 import { db } from "../../Firebase/config";
 import { collection, getDocs, addDoc } from "firebase/firestore";

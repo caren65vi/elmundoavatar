@@ -1,9 +1,9 @@
 import "./Timeline.css";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { db } from "../../Firebase/config";
 import { collection, addDoc, onSnapshot, query, orderBy } from "firebase/firestore";
 import { defaultTimeline } from "../../mockData";
-import { Plus, X, Heart, Sparkles, MapPin } from "lucide-react";
+import { Plus, X, MapPin } from "lucide-react";
 
 export default function Timeline({ user }) {
   const [moments, setMoments] = useState([]);

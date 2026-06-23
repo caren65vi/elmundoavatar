@@ -1,5 +1,5 @@
 import "./Nations.css";
-import React, { useState } from "react";
+import { useState } from "react";
 
 export default function Nations({ defaultSubNation }) {
   const [activeNation, setActiveNation] = useState(defaultSubNation || "agua");

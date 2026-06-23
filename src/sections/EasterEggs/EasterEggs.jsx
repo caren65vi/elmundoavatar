@@ -1,6 +1,5 @@
 import "./EasterEggs.css";
-import React from "react";
-import { Sparkles, Key, Lock, Unlock, Heart } from "lucide-react";
+import { Lock, Unlock, Heart } from "lucide-react";
 
 export default function EasterEggs({ foundSymbols }) {
   const allFound = foundSymbols.agua && foundSymbols.tierra && foundSymbols.fuego && foundSymbols.aire;

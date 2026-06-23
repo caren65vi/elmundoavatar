@@ -1,5 +1,5 @@
 import "./Dashboard.css";
-import React, { useState } from "react";
+import { useState } from "react";
 import { Sparkles } from "lucide-react";
 
 export default function Dashboard({ user, onSelectTab, daysTogether }) {

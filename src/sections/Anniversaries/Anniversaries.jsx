@@ -1,9 +1,9 @@
 import "./Anniversaries.css";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { db } from "../../Firebase/config";
 import { collection, getDocs, query, orderBy } from "firebase/firestore";
 import { defaultAnniversaries } from "../../mockData";
-import { Heart, Star, Sparkles } from "lucide-react";
+import { Heart } from "lucide-react";
 
 export default function Anniversaries() {
   const [anniversaries, setAnniversaries] = useState([]);

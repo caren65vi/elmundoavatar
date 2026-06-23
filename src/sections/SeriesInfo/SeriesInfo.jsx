@@ -1,6 +1,6 @@
 import "./SeriesInfo.css";
-import React, { useState, useEffect } from "react";
-import { Award, Film, BookOpen, User } from "lucide-react";
+import { useState, useEffect } from "react";
+import { BookOpen } from "lucide-react";
 
 export default function SeriesInfo() {
   const [seasons, setSeasons] = useState(0);

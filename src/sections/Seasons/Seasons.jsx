@@ -1,5 +1,5 @@
 import "./Seasons.css";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { db } from "../../Firebase/config";
 import { collection, getDocs, query, where, orderBy } from "firebase/firestore";
 import { bookWaterEpisodes, bookEarthEpisodes, bookFireEpisodes } from "../../episodesData";

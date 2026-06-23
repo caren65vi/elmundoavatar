@@ -1,9 +1,9 @@
 import "./Poems.css";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { db } from "../../Firebase/config";
 import { collection, getDocs, orderBy, query } from "firebase/firestore";
 import { defaultPoems } from "../../mockData";
-import { Music, VolumeX, Volume2, Heart, Mail, MailOpen } from "lucide-react";
+import { VolumeX, Volume2, Heart } from "lucide-react";
 
 export default function Poems() {
   const [poems, setPoems] = useState([]);

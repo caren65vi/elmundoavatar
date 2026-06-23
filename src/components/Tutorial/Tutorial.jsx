@@ -1,6 +1,6 @@
 import "./Tutorial.css";
-import React, { useState } from "react";
-import { HelpCircle, ChevronRight, X } from "lucide-react";
+import { useState } from "react";
+import { ChevronRight, X } from "lucide-react";
 
 export default function Tutorial({ onClose }) {
   const [currentStep, setCurrentStep] = useState(0);
