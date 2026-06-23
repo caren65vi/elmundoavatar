@@ -11,9 +11,11 @@ import {
   where,
   getDocs,
   orderBy,
-  writeBatch
+  writeBatch,
+  updateDoc,
+  deleteDoc
 } from "firebase/firestore";
-import { Shield, Users, Heart, Sparkles, Send, Calendar, Award, Database } from "lucide-react";
+import { Shield, Users, Heart, Sparkles, Send, Calendar, Award, Database, Trash2, Edit3, X, Check, Bell } from "lucide-react";
 import "./AdminPanel.css";
 import { defaultCharacters, defaultTimeline, defaultAnniversaries, defaultSpecialDates, defaultPoems } from "../../mockData";
 import { bookWaterEpisodes, bookEarthEpisodes, bookFireEpisodes } from "../../episodesData";
@@ -51,6 +53,17 @@ export default function AdminPanel({ user }) {
   // Database seeder
   const [seeding, setSeeding] = useState(false);
   const [seedLog, setSeedLog] = useState([]);
+
+  // CRUD — Fechas especiales
+  const [specialDatesList, setSpecialDatesList] = useState([]);
+  const [editingDate, setEditingDate] = useState(null); // { id, title, date, description, element, photoUrl }
+
+  // CRUD — Poemas
+  const [poemsList, setPoemsList] = useState([]);
+  const [editingPoem, setEditingPoem] = useState(null); // { id, title, content, element }
+
+  // Notificaciones historial
+  const [notifHistory, setNotifHistory] = useState([]);
 
   // Inline toast instead of alert()
   const [toast, setToast] = useState(null);
@@ -129,8 +142,38 @@ export default function AdminPanel({ user }) {
     };
     fetchQuizStats();
 
+    // Real-time listener — Fechas especiales
+    const unsubDates = onSnapshot(
+      query(collection(db, "mensajes_especiales"), orderBy("timestamp", "desc")),
+      (snap) => {
+        setSpecialDatesList(snap.docs.map((d) => ({ id: d.id, ...d.data() })));
+      },
+      (err) => console.warn("dates listener:", err)
+    );
+
+    // Real-time listener — Poemas
+    const unsubPoems = onSnapshot(
+      query(collection(db, "poemas"), orderBy("timestamp", "desc")),
+      (snap) => {
+        setPoemsList(snap.docs.map((d) => ({ id: d.id, ...d.data() })));
+      },
+      (err) => console.warn("poems listener:", err)
+    );
+
+    // Real-time listener — Notificaciones (historial últimas 10)
+    const unsubNotif = onSnapshot(
+      query(collection(db, "notificaciones"), orderBy("timestamp", "desc")),
+      (snap) => {
+        setNotifHistory(snap.docs.slice(0, 10).map((d) => ({ id: d.id, ...d.data() })));
+      },
+      (err) => console.warn("notif listener:", err)
+    );
+
     return () => {
       unsubscribeUser();
+      unsubDates();
+      unsubPoems();
+      unsubNotif();
     };
   }, []);
 
@@ -377,6 +420,77 @@ export default function AdminPanel({ user }) {
       showToast(`¡Sorpresa de ${type} enviada! 🌟`);
     } catch (err) {
       showToast("Error al enviar sorpresa: " + err.message, "error");
+    }
+  };
+
+  // --- CRUD Fechas Especiales ---
+  const handleDeleteDate = async (id) => {
+    if (!window.confirm("¿Eliminar esta fecha especial?")) return;
+    try {
+      await deleteDoc(doc(db, "mensajes_especiales", id));
+      showToast("Fecha eliminada 🗑️");
+    } catch (err) {
+      showToast("Error: " + err.message, "error");
+    }
+  };
+
+  const handleSaveEditDate = async () => {
+    if (!editingDate) return;
+    try {
+      const { id, ...data } = editingDate;
+      await updateDoc(doc(db, "mensajes_especiales", id), {
+        title: data.title,
+        date: data.date,
+        description: data.description,
+        element: data.element,
+        photoUrl: data.photoUrl || ""
+      });
+      setEditingDate(null);
+      showToast("Fecha actualizada ✅");
+    } catch (err) {
+      showToast("Error: " + err.message, "error");
+    }
+  };
+
+  // --- CRUD Poemas ---
+  const handleDeletePoem = async (id) => {
+    if (!window.confirm("¿Eliminar este poema?")) return;
+    try {
+      await deleteDoc(doc(db, "poemas", id));
+      showToast("Poema eliminado 🗑️");
+    } catch (err) {
+      showToast("Error: " + err.message, "error");
+    }
+  };
+
+  const handleSaveEditPoem = async () => {
+    if (!editingPoem) return;
+    try {
+      const { id, ...data } = editingPoem;
+      await updateDoc(doc(db, "poemas", id), {
+        title: data.title,
+        content: data.content,
+        element: data.element
+      });
+      setEditingPoem(null);
+      showToast("Poema actualizado ✅");
+    } catch (err) {
+      showToast("Error: " + err.message, "error");
+    }
+  };
+
+  // Enviar notificación personalizada
+  const handleSendCustomNotif = async (title, message) => {
+    try {
+      await addDoc(collection(db, "notificaciones"), {
+        title,
+        message,
+        type: "manual",
+        timestamp: new Date().toISOString()
+      });
+      showToast("Notificación enviada 🔔");
+    } catch (err) {
+      showToast("Error: " + err.message, "error");
     }
   };
 
@@ -730,6 +844,159 @@ export default function AdminPanel({ user }) {
         </div>
       </div>
 
+      {/* ── GESTIÓN FECHAS ESPECIALES ── */}
+      <div style={{ marginTop: "40px", background: "var(--bg-panel)", border: "1px solid var(--border-color)", borderRadius: "16px", padding: "25px", textAlign: "left" }}>
+        <h2 style={{ fontSize: "1.25rem", color: "#fff", marginBottom: "16px", display: "flex", alignItems: "center", gap: "8px" }}>
+          <Calendar size={18} color="var(--primary-color)" />
+          <span>Gestión de Fechas Especiales</span>
+          <span style={{ marginLeft: "auto", fontSize: "0.75rem", color: "var(--text-muted)", fontWeight: "normal" }}>{specialDatesList.length} fechas</span>
+        </h2>
+
+        {specialDatesList.length === 0 ? (
+          <p style={{ color: "var(--text-muted)", fontSize: "0.85rem" }}>No hay fechas programadas aún.</p>
+        ) : (
+          <div style={{ display: "flex", flexDirection: "column", gap: "10px", maxHeight: "320px", overflowY: "auto" }}>
+            {specialDatesList.map((item) => (
+              <div key={item.id} style={{ background: "rgba(255,255,255,0.03)", border: "1px solid var(--border-color)", borderRadius: "10px", padding: "12px 15px" }}>
+                {editingDate?.id === item.id ? (
+                  // ── Inline edit form ──
+                  <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+                    <input value={editingDate.title} onChange={(e) => setEditingDate({ ...editingDate, title: e.target.value })}
+                      style={{ padding: "7px", background: "rgba(0,0,0,0.4)", border: "1px solid var(--border-color)", color: "#fff", borderRadius: "6px", fontSize: "0.85rem" }} />
+                    <input type="date" value={editingDate.date?.substring(0, 10)} onChange={(e) => setEditingDate({ ...editingDate, date: e.target.value + "T00:00:00" })}
+                      style={{ padding: "7px", background: "rgba(0,0,0,0.4)", border: "1px solid var(--border-color)", color: "#fff", borderRadius: "6px", fontSize: "0.85rem" }} />
+                    <textarea value={editingDate.description} rows={2} onChange={(e) => setEditingDate({ ...editingDate, description: e.target.value })}
+                      style={{ padding: "7px", background: "rgba(0,0,0,0.4)", border: "1px solid var(--border-color)", color: "#fff", borderRadius: "6px", fontSize: "0.85rem", resize: "vertical" }} />
+                    <input value={editingDate.photoUrl || ""} placeholder="URL foto (opcional)" onChange={(e) => setEditingDate({ ...editingDate, photoUrl: e.target.value })}
+                      style={{ padding: "7px", background: "rgba(0,0,0,0.4)", border: "1px solid var(--border-color)", color: "#fff", borderRadius: "6px", fontSize: "0.85rem" }} />
+                    <select value={editingDate.element} onChange={(e) => setEditingDate({ ...editingDate, element: e.target.value })}
+                      style={{ padding: "7px", background: "rgba(0,0,0,0.4)", border: "1px solid var(--border-color)", color: "#fff", borderRadius: "6px", fontSize: "0.85rem" }}>
+                      <option value="agua">Agua 🌊</option><option value="tierra">Tierra 🌱</option><option value="fuego">Fuego 🔥</option><option value="aire">Aire 💨</option>
+                    </select>
+                    <div style={{ display: "flex", gap: "8px" }}>
+                      <button onClick={handleSaveEditDate} style={{ flex: 1, padding: "7px", background: "rgba(46,204,113,0.15)", border: "1px solid #2ecc71", color: "#2ecc71", borderRadius: "6px", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: "4px", fontSize: "0.8rem", fontWeight: "bold" }}>
+                        <Check size={13} /> Guardar
+                      </button>
+                      <button onClick={() => setEditingDate(null)} style={{ flex: 1, padding: "7px", background: "rgba(127,140,141,0.1)", border: "1px solid #7f8c8d", color: "#7f8c8d", borderRadius: "6px", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: "4px", fontSize: "0.8rem" }}>
+                        <X size={13} /> Cancelar
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  // ── Display row ──
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "10px" }}>
+                    <div style={{ flex: 1 }}>
+                      <div style={{ fontWeight: "bold", color: "#fff", fontSize: "0.88rem", marginBottom: "3px" }}>{item.title}</div>
+                      <div style={{ fontSize: "0.75rem", color: "var(--text-muted)" }}>
+                        📅 {item.date?.substring(0, 10)} · {item.element}
+                      </div>
+                      {item.description && <div style={{ fontSize: "0.75rem", color: "var(--text-muted)", marginTop: "3px", lineClamp: 1, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", maxWidth: "240px" }}>{item.description}</div>}
+                    </div>
+                    <div style={{ display: "flex", gap: "6px", flexShrink: 0 }}>
+                      <button onClick={() => setEditingDate(item)} style={{ padding: "6px 10px", background: "rgba(192,160,96,0.1)", border: "1px solid var(--primary-color)", color: "var(--primary-color)", borderRadius: "6px", cursor: "pointer" }} title="Editar">
+                        <Edit3 size={13} />
+                      </button>
+                      <button onClick={() => handleDeleteDate(item.id)} style={{ padding: "6px 10px", background: "rgba(192,57,43,0.1)", border: "1px solid #c0392b", color: "#e74c3c", borderRadius: "6px", cursor: "pointer" }} title="Eliminar">
+                        <Trash2 size={13} />
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+
+      {/* ── GESTIÓN POEMAS ── */}
+      <div style={{ marginTop: "25px", background: "var(--bg-panel)", border: "1px solid var(--border-color)", borderRadius: "16px", padding: "25px", textAlign: "left" }}>
+        <h2 style={{ fontSize: "1.25rem", color: "#fff", marginBottom: "16px", display: "flex", alignItems: "center", gap: "8px" }}>
+          <Send size={18} color="var(--primary-color)" />
+          <span>Gestión de Poemas</span>
+          <span style={{ marginLeft: "auto", fontSize: "0.75rem", color: "var(--text-muted)", fontWeight: "normal" }}>{poemsList.length} poemas</span>
+        </h2>
+
+        {poemsList.length === 0 ? (
+          <p style={{ color: "var(--text-muted)", fontSize: "0.85rem" }}>No hay poemas publicados aún.</p>
+        ) : (
+          <div style={{ display: "flex", flexDirection: "column", gap: "10px", maxHeight: "320px", overflowY: "auto" }}>
+            {poemsList.map((item) => (
+              <div key={item.id} style={{ background: "rgba(255,255,255,0.03)", border: "1px solid var(--border-color)", borderRadius: "10px", padding: "12px 15px" }}>
+                {editingPoem?.id === item.id ? (
+                  <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+                    <input value={editingPoem.title} onChange={(e) => setEditingPoem({ ...editingPoem, title: e.target.value })}
+                      style={{ padding: "7px", background: "rgba(0,0,0,0.4)", border: "1px solid var(--border-color)", color: "#fff", borderRadius: "6px", fontSize: "0.85rem" }} />
+                    <textarea value={editingPoem.content} rows={4} onChange={(e) => setEditingPoem({ ...editingPoem, content: e.target.value })}
+                      style={{ padding: "7px", background: "rgba(0,0,0,0.4)", border: "1px solid var(--border-color)", color: "#fff", borderRadius: "6px", fontSize: "0.85rem", fontFamily: "var(--font-serif)", resize: "vertical" }} />
+                    <select value={editingPoem.element} onChange={(e) => setEditingPoem({ ...editingPoem, element: e.target.value })}
+                      style={{ padding: "7px", background: "rgba(0,0,0,0.4)", border: "1px solid var(--border-color)", color: "#fff", borderRadius: "6px", fontSize: "0.85rem" }}>
+                      <option value="agua">Agua 🌊</option><option value="tierra">Tierra 🌱</option><option value="fuego">Fuego 🔥</option><option value="aire">Aire 💨</option>
+                    </select>
+                    <div style={{ display: "flex", gap: "8px" }}>
+                      <button onClick={handleSaveEditPoem} style={{ flex: 1, padding: "7px", background: "rgba(46,204,113,0.15)", border: "1px solid #2ecc71", color: "#2ecc71", borderRadius: "6px", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: "4px", fontSize: "0.8rem", fontWeight: "bold" }}>
+                        <Check size={13} /> Guardar
+                      </button>
+                      <button onClick={() => setEditingPoem(null)} style={{ flex: 1, padding: "7px", background: "rgba(127,140,141,0.1)", border: "1px solid #7f8c8d", color: "#7f8c8d", borderRadius: "6px", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: "4px", fontSize: "0.8rem" }}>
+                        <X size={13} /> Cancelar
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "10px" }}>
+                    <div style={{ flex: 1 }}>
+                      <div style={{ fontWeight: "bold", color: "#fff", fontSize: "0.88rem", marginBottom: "3px" }}>{item.title}</div>
+                      <div style={{ fontSize: "0.75rem", color: "var(--text-muted)", marginBottom: "3px" }}>{item.element} · {item.date || item.timestamp?.substring(0, 10)}</div>
+                      <div style={{ fontSize: "0.75rem", color: "var(--text-muted)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", maxWidth: "240px" }}>{item.content?.substring(0, 60)}…</div>
+                    </div>
+                    <div style={{ display: "flex", gap: "6px", flexShrink: 0 }}>
+                      <button onClick={() => setEditingPoem(item)} style={{ padding: "6px 10px", background: "rgba(192,160,96,0.1)", border: "1px solid var(--primary-color)", color: "var(--primary-color)", borderRadius: "6px", cursor: "pointer" }} title="Editar">
+                        <Edit3 size={13} />
+                      </button>
+                      <button onClick={() => handleDeletePoem(item.id)} style={{ padding: "6px 10px", background: "rgba(192,57,43,0.1)", border: "1px solid #c0392b", color: "#e74c3c", borderRadius: "6px", cursor: "pointer" }} title="Eliminar">
+                        <Trash2 size={13} />
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+
+      {/* ── HISTORIAL DE NOTIFICACIONES + ENVÍO MANUAL ── */}
+      <div style={{ marginTop: "25px", background: "var(--bg-panel)", border: "1px solid var(--border-color)", borderRadius: "16px", padding: "25px", textAlign: "left" }}>
+        <h2 style={{ fontSize: "1.25rem", color: "#fff", marginBottom: "16px", display: "flex", alignItems: "center", gap: "8px" }}>
+          <Bell size={18} color="var(--primary-color)" />
+          <span>Notificaciones</span>
+        </h2>
+
+        {/* Envío manual */}
+        <NotifManualForm onSend={handleSendCustomNotif} />
+
+        {/* Historial */}
+        <div style={{ marginTop: "16px" }}>
+          <div style={{ fontSize: "0.75rem", color: "var(--text-muted)", textTransform: "uppercase", fontWeight: "bold", marginBottom: "10px" }}>Últimas enviadas</div>
+          {notifHistory.length === 0 ? (
+            <p style={{ color: "var(--text-muted)", fontSize: "0.85rem" }}>Sin notificaciones aún.</p>
+          ) : (
+            <div style={{ display: "flex", flexDirection: "column", gap: "8px", maxHeight: "200px", overflowY: "auto" }}>
+              {notifHistory.map((n) => (
+                <div key={n.id} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", background: "rgba(255,255,255,0.02)", border: "1px solid var(--border-color)", borderRadius: "8px", padding: "10px 14px" }}>
+                  <div>
+                    <div style={{ fontSize: "0.83rem", color: "#fff", fontWeight: "bold" }}>{n.title}</div>
+                    <div style={{ fontSize: "0.72rem", color: "var(--text-muted)" }}>{n.message}</div>
+                  </div>
+                  <div style={{ fontSize: "0.68rem", color: "var(--text-muted)", flexShrink: 0, marginLeft: "10px" }}>
+                    {new Date(n.timestamp).toLocaleString("es-ES", { day: "2-digit", month: "short", hour: "2-digit", minute: "2-digit" })}
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+
       {/* Database Seeder — One-time setup tool */}
       <div style={{ marginTop: "40px", background: "var(--bg-panel)", border: "1px solid var(--border-color)", borderRadius: "16px", padding: "25px", textAlign: "left" }}>
         <h2 style={{ fontSize: "1.25rem", color: "#fff", marginBottom: "10px", display: "flex", alignItems: "center", gap: "8px" }}>
@@ -781,5 +1048,35 @@ export default function AdminPanel({ user }) {
         }
       `}} />
     </div>
+  );
+}
+
+function NotifManualForm({ onSend }) {
+  const [title, setTitle] = useState("Un mensaje especial 💕");
+  const [message, setMessage] = useState("");
+  const [sending, setSending] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!message.trim()) return;
+    setSending(true);
+    await onSend(title, message);
+    setMessage("");
+    setSending(false);
+  };
+
+  return (
+    <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+      <input value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Título de la notificación..."
+        style={{ padding: "9px", background: "rgba(0,0,0,0.3)", border: "1px solid var(--border-color)", color: "#fff", borderRadius: "7px", fontSize: "0.85rem" }} />
+      <div style={{ display: "flex", gap: "8px" }}>
+        <input value={message} onChange={(e) => setMessage(e.target.value)} placeholder="Mensaje que recibirá Evelyn..." required
+          style={{ flex: 1, padding: "9px", background: "rgba(0,0,0,0.3)", border: "1px solid var(--border-color)", color: "#fff", borderRadius: "7px", fontSize: "0.85rem" }} />
+        <button type="submit" disabled={sending}
+          style={{ padding: "9px 16px", background: "rgba(255,51,102,0.15)", border: "1px solid var(--primary-color)", color: "var(--primary-color)", borderRadius: "7px", fontWeight: "bold", cursor: sending ? "not-allowed" : "pointer", fontSize: "0.85rem", whiteSpace: "nowrap" }}>
+          {sending ? "..." : "🔔 Enviar"}
+        </button>
+      </div>
+    </form>
   );
 }

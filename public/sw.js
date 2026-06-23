@@ -39,3 +39,37 @@ self.addEventListener("fetch", (event) => {
     })
   );
 });
+
+// Recibe instrucción desde la app para mostrar notificación nativa del SO
+self.addEventListener("message", (event) => {
+  if (event.data && event.data.type === "SHOW_NOTIFICATION") {
+    const { title, body, icon, tag } = event.data;
+    event.waitUntil(
+      self.registration.showNotification(title, {
+        body,
+        icon: icon || "/appa.png",
+        badge: "/appa.png",
+        vibrate: [200, 100, 200],
+        tag: tag || "avatar-notif",
+        renotify: true,
+        requireInteraction: false
+      })
+    );
+  }
+});
+
+// Al tocar la notificación, lleva a la app
+self.addEventListener("notificationclick", (event) => {
+  event.notification.close();
+  event.waitUntil(
+    self.clients.matchAll({ type: "window", includeUncontrolled: true }).then((clientList) => {
+      for (const client of clientList) {
+        if ("focus" in client) {
+          client.focus();
+          return;
+        }
+      }
+      return self.clients.openWindow("/dashboard");
+    })
+  );
+});

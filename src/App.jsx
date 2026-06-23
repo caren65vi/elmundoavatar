@@ -220,15 +220,29 @@ function MainAppLayout({ defaultTab }) {
           const diffSeconds = (now - notifTime) / 1000;
 
           // Solo se muestran mensajes recién enviados, no el historial al abrir la app.
-          if (diffSeconds < 10) {
-            if (typeof Notification !== "undefined" && Notification.permission === "granted") {
-              const notification = new Notification(data.title || "Un mensaje de Appa", {
-                body: data.message || "Tienes algo especial esperándote.",
-                icon: "/appa.png",
-                badge: "/appa.png",
-                tag: `avatar-message-${change.doc.id}`
+          if (diffSeconds < 10 && typeof Notification !== "undefined" && Notification.permission === "granted") {
+            const notifPayload = {
+              title: data.title || "Un mensaje de Appa 💕",
+              body: data.message || "Tienes algo especial esperándote.",
+              icon: "/appa.png",
+              tag: `avatar-message-${change.doc.id}`
+            };
+            // Usar SW para notificación OS-level (aparece en bandeja del sistema)
+            if ("serviceWorker" in navigator) {
+              navigator.serviceWorker.ready.then((reg) => {
+                reg.showNotification(notifPayload.title, {
+                  body: notifPayload.body,
+                  icon: notifPayload.icon,
+                  badge: "/appa.png",
+                  tag: notifPayload.tag,
+                  vibrate: [200, 100, 200],
+                  renotify: true
+                });
+              }).catch(() => {
+                new Notification(notifPayload.title, { body: notifPayload.body, icon: notifPayload.icon });
               });
-              notification.onclick = () => window.focus();
+            } else {
+              new Notification(notifPayload.title, { body: notifPayload.body, icon: notifPayload.icon });
             }
           }
         }
