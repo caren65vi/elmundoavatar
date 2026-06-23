@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { db } from "./Firebase/config";
 import { addDoc, collection, doc, onSnapshot, serverTimestamp, setDoc } from "firebase/firestore";
 import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
@@ -137,8 +137,8 @@ function MainAppLayout({ defaultTab }) {
   // Appa guide assistant states
   const [appaBubble, setAppaBubble] = useState("");
   const [appaTimer, setAppaTimer] = useState(null);
-  const appaImgRef = React.useRef(null);
-  React.useEffect(() => {
+  const appaImgRef = useRef(null);
+  useEffect(() => {
     const img = new Image();
     img.src = "/appa.png";
     appaImgRef.current = img;

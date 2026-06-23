@@ -1,5 +1,5 @@
 import "./Tutorial.css";
-import { useState } from "react";
+import React, { useState } from "react";
 import { ChevronRight, X } from "lucide-react";
 
 export default function Tutorial({ onClose }) {

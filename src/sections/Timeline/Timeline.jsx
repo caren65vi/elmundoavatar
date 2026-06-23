@@ -1,5 +1,5 @@
 import "./Timeline.css";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { db } from "../../Firebase/config";
 import { collection, addDoc, onSnapshot, query, orderBy } from "firebase/firestore";
 import { defaultTimeline } from "../../mockData";

@@ -1,5 +1,5 @@
 import "./Anniversaries.css";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { db } from "../../Firebase/config";
 import { collection, getDocs, query, orderBy } from "firebase/firestore";
 import { defaultAnniversaries } from "../../mockData";

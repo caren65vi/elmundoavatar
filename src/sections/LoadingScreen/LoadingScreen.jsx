@@ -1,5 +1,5 @@
 import "./LoadingScreen.css";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 
 export default function LoadingScreen({ onFinished }) {
   useEffect(() => {

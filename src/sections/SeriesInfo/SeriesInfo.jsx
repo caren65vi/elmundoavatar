@@ -1,5 +1,5 @@
 import "./SeriesInfo.css";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { BookOpen } from "lucide-react";
 
 export default function SeriesInfo() {
