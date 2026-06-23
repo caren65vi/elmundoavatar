@@ -232,27 +232,12 @@ export default function AppaMaze({ user }) {
       { x: 7,  y: 2, dirX: 1, dirY: 0 },
       { x: 8,  y: 4, dirX: 1, dirY: 0 }
     ],
-    // Nivel 4 (21×21) — corridors en filas 1, 5 y 13
-    [
-      { x: 5,  y: 1,  dirX:  1, dirY: 0 },
-      { x: 11, y: 1,  dirX: -1, dirY: 0 },
-      { x: 5,  y: 13, dirX:  1, dirY: 0 }
-    ],
-    // Nivel 5 (31×31) — corridors en filas 1, 15 y 29
-    [
-      { x: 2, y: 1,  dirX:  1, dirY: 0 },
-      { x: 8, y: 1,  dirX: -1, dirY: 0 },
-      { x: 2, y: 15, dirX:  1, dirY: 0 },
-      { x: 6, y: 29, dirX:  1, dirY: 0 }
-    ],
-    // Nivel 6 (41×41) — corridors en filas 1, 19, 29 y 39
-    [
-      { x: 3,  y: 1,  dirX:  1, dirY: 0 },
-      { x: 10, y: 1,  dirX: -1, dirY: 0 },
-      { x: 4,  y: 19, dirX:  1, dirY: 0 },
-      { x: 7,  y: 29, dirX: -1, dirY: 0 },
-      { x: 2,  y: 39, dirX:  1, dirY: 0 }
-    ]
+    // Nivel 4 (21×21) — sin obstáculos
+    [],
+    // Nivel 5 (31×31) — sin obstáculos
+    [],
+    // Nivel 6 (41×41) — sin obstáculos
+    []
   ];
 
   // Initialize level: set player position and hazards
